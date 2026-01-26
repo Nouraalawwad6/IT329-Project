@@ -1,0 +1,217 @@
+/* ---------- Base ---------- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background-color: #3E2723;
+}
+
+/* ---------- Page Layout ---------- */
+.home {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+
+  /* Warm brown background */
+  background: linear-gradient(
+    180deg,
+    #3E2723,
+    #6F4E37,
+    #8D775F
+  );
+}
+
+/* ---------- Card ---------- */
+.card {
+  width: min(520px, 92vw);
+  background: #f4f6f7;
+  border-radius: 22px;
+  padding: 36px 30px;
+  text-align: center;
+
+  box-shadow:
+    0 22px 45px rgba(55, 66, 84, 0.35),
+    0 10px 24px rgba(62, 39, 35, 0.35);
+}
+
+/* ---------- Logo ---------- */
+.logo-wrap {
+  margin: 0 auto 18px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: transparent; 
+}
+
+
+.logo {
+  width: 180px;
+  height: auto;
+  object-fit: contain;
+
+  /* shadow */
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
+}
+
+
+
+/* ---------- Text ---------- */
+.app-name {
+  margin: 12px 0 6px;
+  font-size: 34px;
+  color: #374254;   /* soft winter blue */
+  letter-spacing: 0.3px;
+}
+
+.tagline {
+  margin: 0 0 24px;
+  font-size: 15px;
+  color: #6f8fa6;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  padding: 14px 22px;
+  border-radius: 16px;
+  font-weight: 700;
+  transition: 
+    background 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.25s ease;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* Primary button (light winter blue) */
+.primary {
+  background: linear-gradient(
+    135deg,
+    #8a9fb2,
+    #6f8fa6
+  );
+  color: #ffffff;
+  width: min(260px, 90%);
+  margin: 10px auto 0;
+
+  /* default shadow */
+  box-shadow: 0 4px 10px rgba(55, 66, 84, 0.25);
+}
+
+.primary:hover {
+  background: linear-gradient(
+    135deg,
+    #adbbc6,
+    #8a9fb2
+  );
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(55, 66, 84, 0.35);
+}
+
+.primary:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(55, 66, 84, 0.45);
+}
+
+/* Secondary button */
+.secondary {
+  background: transparent;
+  color: #374254;
+  border: 2px solid #adbbc6;
+  width: min(260px, 90%);
+  padding: 12px 20px;
+
+  /* default shadow */
+  box-shadow: 0 3px 8px rgba(55, 66, 84, 0.18);
+}
+
+.secondary:hover {
+  background: rgba(173, 187, 198, 0.35);
+  border-color: #8a9fb2;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(55, 66, 84, 0.28);
+}
+
+.secondary:active {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(55, 66, 84, 0.38);
+}
+
+/* ---------- Links ---------- */
+.new-user {
+  margin: 18px 0 0;
+  font-size: 14px;
+  color: #6f8fa6;
+  text-align: center;
+}
+
+.link {
+  color: #374254;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.note {
+  margin: 22px 0 0;
+  font-size: 12px;
+  color: #8a9fb2;
+}
+
+/* ---------- Form Styling (Login) ---------- */
+.login-form {
+  width: min(420px, 100%);
+  margin: 18px auto 0;
+  text-align: left;
+}
+
+.form-group {
+  margin: 14px 0;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #374254;
+  letter-spacing: 0.2px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 13px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(55, 66, 84, 0.25);
+  background: #ffffff;
+  outline: none;
+  font-size: 14px;
+  color: #374254;
+  transition: 0.25s ease;
+}
+
+.form-group input::placeholder {
+  color: rgba(55, 66, 84, 0.45);
+}
+
+.form-group input:focus {
+  border-color: #8a9fb2;
+  box-shadow: 0 0 0 4px rgba(138, 159, 178, 0.35);
+}
+
+/* ---------- Buttons layout ---------- */
+.btn-group {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
