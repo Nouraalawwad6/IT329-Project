@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winter Flavors | User Page</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main class="user-page">
+
+    <!-- Header -->
+    <header class="user-header">
+      <h2>Welcome <span class="username">Sara</span></h2>
+      <a href="Home.html" class="logout">Log-out</a>
+    </header>
+
+    <!-- My Information -->
+    <section class="box info-box">
+      <div>
+        <h3>My Information</h3>
+        <p><strong>Name:</strong> Sara Ahmed</p>
+        <p><strong>Email:</strong> sara@email.com</p>
+      </div>
+      <img src="default-profile.png" alt="profile photo">
+    </section>
+
+    <!-- My Recipes -->
+    <section class="box">
+      <h3><a href="MyRecipes.html" class="link">My Recipes</a></h3>
+      <p>Total Recipes: 5</p>
+      <p>Total Likes: 120</p>
+    </section>
+
+    <!-- All Available Recipes -->
+    <section class="box">
+      <h3>All Available Recipes</h3>
+
+      <div class="filter">
+        <select>
+          <option>All Categories</option>
+          <option>Hot Drinks</option>
+          <option>Winter Sweets</option>
+          <option>Soups & Warm Meals</option>
+        </select>
+        <button class="filter-btn">Filter</button>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Recipe Name</th>
+            <th>Recipe Photo</th>
+            <th>Recipe Creator</th>
+            <th>Likes</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td><a href="ViewRecipe.html" class="link">Classic Hot Chocolate</a></td>
+            <td>[photo]</td>
+            <td>Sara<br>[photo]</td>
+            <td>45</td>
+            <td>Hot Drinks</td>
+          </tr>
+
+          <tr>
+            <td><a href="ViewRecipe.html" class="link">Spiced Winter Latte</a></td>
+            <td>[photo]</td>
+            <td>Omar<br>[photo]</td>
+            <td>30</td>
+            <td>Hot Drinks</td>
+          </tr>
+
+          <tr>
+            <td><a href="ViewRecipe.html" class="link">Gingerbread Cookies</a></td>
+            <td>[photo]</td>
+            <td>Noor<br>[photo]</td>
+            <td>38</td>
+            <td>Winter Sweets</td>
+          </tr>
+
+          <tr>
+            <td><a href="ViewRecipe.html" class="link">Warm Cinnamon Apple Pie</a></td>
+            <td>[photo]</td>
+            <td>Sara<br>[photo]</td>
+            <td>27</td>
+            <td>Winter Sweets</td>
+          </tr>
+
+          <tr>
+            <td><a href="ViewRecipe.html" class="link">Creamy Pumpkin Soup</a></td>
+            <td>[photo]</td>
+            <td>Ali<br>[photo]</td>
+            <td>22</td>
+            <td>Soups & Warm Meals</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Favourite Recipes -->
+    <section class="box">
+      <h3>My Favourite Recipes ♥</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Recipe Name</th>
+            <th>Recipe Photo</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td><a href="ViewRecipe.html" class="link">Classic Hot Chocolate</a></td>
+            <td>[photo]</td>
+            <td><a href="Userpage.html" class="link">Remove</a></td>
+          </tr>
+
+          <tr>
+            <td><a href="ViewRecipe.html" class="link">Gingerbread Cookies</a></td>
+            <td>[photo]</td>
+            <td><a href="Userpage.html" class="link">Remove</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+</body>
+</html>

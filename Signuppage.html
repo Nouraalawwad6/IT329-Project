@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winter Flavors | Sign Up</title>
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main class="sign-page">
+    <section class="card">
+
+      <h1 class="app-name">Sign Up</h1>
+      <p class="tagline">Create your Winter Flavors account</p>
+
+      <form class="login-form" action="Userpage.html" method="get">
+
+        <div class="form-group">
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" name="fname"
+                 placeholder="Enter your first name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" name="lname"
+                 placeholder="Enter your last name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="profile">Profile Image (optional)</label>
+          <input type="file" id="profile" name="profile" accept="image/*" />
+          <small class="hint">
+            If no image is uploaded, a default profile picture will be used.
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email"
+                 placeholder="Enter your email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password"
+                 placeholder="Create a password" required />
+        </div>
+
+        <div class="btn-group">
+          <button type="submit" class="btn primary">
+            Create Account
+          </button>
+        </div>
+
+      </form>
+
+      <p class="new-user">
+        Already have an account?
+        <a href="login.html" class="link">Login</a>
+      </p>
+
+      <p class="new-user">
+        Back to
+        <a href="home.html"class="link">Home</a>
+      </p>
+
+    </section>
+  </main>
+</body>
+</html>
