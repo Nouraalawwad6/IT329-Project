@@ -16,14 +16,18 @@ body {
   place-items: center;
   padding: 24px;
 
-  /* Warm brown background */
+  /* Warm brown background 
   background: linear-gradient(
     180deg,
     #3E2723,
     #6F4E37,
     #8D775F
-  );
+  );*/
+    background:#f5f2ec;
+  color:#1f2f46;
 }
+
+
 
 /* ---------- Card ---------- */
 .card {
