@@ -14,7 +14,7 @@
     <!-- Header -->
     <header class="user-header">
       <h2>Welcome <span class="username">Sara</span></h2>
-      <a href="Homepage.html" class="logout">Log-out</a>
+      <a href="home.html" class="logout">Log-out</a>
     </header>
 
     <!-- My Information -->
@@ -24,7 +24,8 @@
         <p><strong>Name:</strong> Sara Ahmed</p>
         <p><strong>Email:</strong> sara@email.com</p>
       </div>
-      <img src="default-profile.png" alt="profile photo">
+      <img id="profileImage" src="default-profile.png" alt="Profile Image">
+
     </section>
 
     <!-- My Recipes -->
@@ -38,17 +39,19 @@
     <section class="box">
       <h3>All Available Recipes</h3>
 
-      <div class="filter">
-        <select>
-          <option>All Categories</option>
-          <option>Hot Drinks</option>
-          <option>Winter Sweets</option>
-          <option>Soups & Warm Meals</option>
-        </select>
-        <button class="filter-btn">Filter</button>
-      </div>
+    <div class="filter">
+  <select id="categoryFilter">
+    <option value="all">All Categories</option>
+    <option value="Hot Drinks">Hot Drinks</option>
+    <option value="Winter Sweets">Winter Sweets</option>
+    <option value="Soups & Warm Meals">Soups & Warm Meals</option>
+  </select>
+  <button class="filter-btn" onclick="filterRecipes()">Filter</button>
+</div>
 
-      <table>
+
+      <table id="recipesTable">
+
         <thead>
           <tr>
             <th>Recipe Name</th>
@@ -69,7 +72,7 @@
           </tr>
 
           <tr>
-            <td><a href="ViewRecipe.html" class="link">Spiced Winter Latte</a></td>
+            <td><a href="ViewRecipe.html" class="link">Vanilla Latte</a></td>
             <td>[photo]</td>
             <td>Omar<br>[photo]</td>
             <td>30</td>
@@ -85,7 +88,7 @@
           </tr>
 
           <tr>
-            <td><a href="ViewRecipe.html" class="link">Warm Cinnamon Apple Pie</a></td>
+            <td><a href="ViewRecipe.html" class="link">Cinnamon Apple Pie</a></td>
             <td>[photo]</td>
             <td>Sara<br>[photo]</td>
             <td>27</td>
@@ -93,7 +96,7 @@
           </tr>
 
           <tr>
-            <td><a href="ViewRecipe.html" class="link">Creamy Pumpkin Soup</a></td>
+            <td><a href="ViewRecipe.html" class="link">Chicken Cream Soup</td>
             <td>[photo]</td>
             <td>Ali<br>[photo]</td>
             <td>22</td>
@@ -133,5 +136,7 @@
     </section>
 
   </main>
+  <script src="script.js"></script>
+
 </body>
 </html>
