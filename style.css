@@ -575,3 +575,87 @@ th {
   border-radius: 50%;
   margin-top: 5px;
 }
+
+
+/* =========================
+   ADMIN PAGE – WINTER STYLE
+========================= */
+
+.admin-page {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: "Inter", sans-serif;
+  color: #1f2f46;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.admin-logout {
+  font-weight: 700;
+  text-decoration: none;
+  color: #1f2f46;
+  border-bottom: 2px solid #1f2f46;
+}
+
+.admin-box {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 22px;
+  margin-bottom: 25px;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+}
+
+.admin-box h3 {
+  margin-top: 0;
+  font-family: "Playfair Display", serif;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+  border: 1px solid rgba(0,0,0,0.15);
+  padding: 10px;
+  text-align: center;
+}
+
+.admin-table th {
+  background: #e6ebf3;
+}
+
+.admin-link {
+  color: #1f2f46;
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 2px solid #1f2f46;
+}
+
+.admin-img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-top: 5px;
+}
+
+.admin-btn {
+  padding: 8px 20px;
+  border-radius: 999px;
+  border: none;
+  background: #1f2f46;
+  color: #f5f2ec;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.admin-btn:hover {
+  opacity: 0.9;
+}

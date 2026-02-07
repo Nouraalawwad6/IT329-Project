@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Winter Flavors | Admin</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main class="admin-page">
+
+    <!-- Header -->
+    <header class="admin-header">
+      <h2>Welcome <span class="admin-name">Noor</span></h2>
+      <a href="home.html" class="admin-logout">Log-out</a>
+    </header>
+
+    <!-- Admin Info -->
+    <section class="admin-box">
+      <h3>My Information</h3>
+      <p><strong>Name:</strong> Noor Fahad</p>
+      <p><strong>Email:</strong> Noor@winterflavors.com</p>
+    </section>
+
+    <!-- Reports -->
+    <section class="admin-box">
+      <h3>Pending Recipe Reports</h3>
+
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Recipe Name</th>
+            <th>Recipe Creator</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>
+              <a href="ViewRecipe.html" class="admin-link">
+                Low-Carb Cheesecake
+              </a>
+            </td>
+
+            <td>
+              Noor<br>
+              <img src="default-profile.png" class="admin-img">
+            </td>
+
+            <td>
+              <form action="admin.html">
+                <label>
+                  <input type="radio" name="r1" required>
+                  Block User
+                </label><br>
+                <label>
+                  <input type="radio" name="r1">
+                  Dismiss
+                </label><br><br>
+                <button class="admin-btn">Submit</button>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Blocked Users -->
+    <section class="admin-box">
+      <h3>Blocked Users</h3>
+
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Omar Khalid</td>
+            <td>omar@email.com</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+</body>
+</html>
