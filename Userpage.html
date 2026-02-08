@@ -10,12 +10,41 @@
 
 <body>
   <main class="user-page">
+<header class="wf-header">
+  <div class="wf-header-inner">
 
-    <!-- Header -->
-    <header class="user-header">
-      <h2>Welcome <span class="username">Sara</span></h2>
-      <a href="home.html" class="logout">Log-out</a>
-    </header>
+    <!-- Logo (اختياري) -->
+    <div class="logo-box">
+      <!-- <img src="images/logo.png" alt="Logo"> -->
+    </div>
+
+    <!-- Welcome text -->
+    <h2 class="welcome-text">
+      Welcome <span class="username">Sara</span>
+    </h2>
+
+    <!-- Logout -->
+    <a href="Homepage.html" class="logout">Log-out</a>
+
+  </div>
+</header>
+
+
+
+
+
+<!-- ===== BREADCRUMB ===== -->
+<div class="wf-breadcrumb-bar">
+  <div class="wf-breadcrumb-inner">
+    <ol class="wf-breadcrumbs">
+      <li><a href="index.html">Home</a></li>
+      <li class="separator">/</li>
+      <li><a href="recipes.html">Recipes</a></li>
+      <li class="separator">/</li>
+      <li class="current">Add Recipe</li>
+    </ol>
+  </div>
+</div>
 
     <!-- My Information -->
     <section class="box info-box">
@@ -24,7 +53,7 @@
         <p><strong>Name:</strong> Sara Ahmed</p>
         <p><strong>Email:</strong> sara@email.com</p>
       </div>
-      <img id="profileImage" src="default-profile.png" alt="Profile Image">
+      <img id="profileImage" src="./images/profile.png" alt="Profile Image">
 
     </section>
 
@@ -65,40 +94,40 @@
         <tbody>
           <tr>
             <td><a href="ViewRecipe.html" class="link">Classic Hot Chocolate</a></td>
-            <td>[photo]</td>
-            <td>Sara<br>[photo]</td>
+            <td><img src="./images/Classic Hot Chocolate.png" alt="Classic Hot Chocolate" class="recipe-photo"></td>
+            <td>Sara<br><img src="./images/profile.png" alt="Sara's Profile" class="profile-photo"></td>
             <td>45</td>
             <td>Hot Drinks</td>
           </tr>
 
           <tr>
             <td><a href="ViewRecipe.html" class="link">Vanilla Latte</a></td>
-            <td>[photo]</td>
-            <td>Omar<br>[photo]</td>
+            <td><img src="./images/Vanilla Latte.png" alt="Vanilla Latte" class="recipe-photo"></td>
+            <td>Omar<br><img src="./images/comments.png" alt="Omar's Profile" class="profile-photo"></td>
             <td>30</td>
             <td>Hot Drinks</td>
           </tr>
 
           <tr>
             <td><a href="ViewRecipe.html" class="link">Gingerbread Cookies</a></td>
-            <td>[photo]</td>
-            <td>Noor<br>[photo]</td>
+            <td><img src="./images/Gingerbread Cookies.png" alt="Gingerbread Cookies" class="recipe-photo"></td>
+            <td>Noor<br><img src="./images/comments.png" alt="Noor's Profile" class="profile-photo"></td>
             <td>38</td>
             <td>Winter Sweets</td>
           </tr>
 
           <tr>
             <td><a href="ViewRecipe.html" class="link">Cinnamon Apple Pie</a></td>
-            <td>[photo]</td>
-            <td>Sara<br>[photo]</td>
+            <td><img src="./images/Cinnamon Apple Pie.png" alt="Cinnamon Apple Pie" class="recipe-photo"></td>
+            <td>Sara<br><img src="./images/profile.png" alt="Sara's Profile" class="profile-photo"></td>
             <td>27</td>
             <td>Winter Sweets</td>
           </tr>
 
           <tr>
-            <td><a href="ViewRecipe.html" class="link">Chicken Cream Soup</td>
-            <td>[photo]</td>
-            <td>Ali<br>[photo]</td>
+            <td><a href="ViewRecipe.html" class="link">Chicken Cream Soup</a></td>
+            <td><img src="./images/Chicken Cream Soup.png" alt="Chicken Cream Soup" class="recipe-photo"></td>
+            <td>Ali<br><img src="./images/comments.png" alt="Ali's Profile" class="profile-photo"></td>
             <td>22</td>
             <td>Soups & Warm Meals</td>
           </tr>
@@ -122,13 +151,13 @@
         <tbody>
           <tr>
             <td><a href="ViewRecipe.html" class="link">Classic Hot Chocolate</a></td>
-            <td>[photo]</td>
+            <td><img src="./images/Classic Hot Chocolate.png" alt="Classic Hot Chocolate" class="recipe-photo"></td>
             <td><a href="Userpage.html" class="link">Remove</a></td>
           </tr>
 
           <tr>
             <td><a href="ViewRecipe.html" class="link">Gingerbread Cookies</a></td>
-            <td>[photo]</td>
+            <td><img src="./images/Gingerbread Cookies.png" alt="Gingerbread Cookies" class="recipe-photo"></td>
             <td><a href="Userpage.html" class="link">Remove</a></td>
           </tr>
         </tbody>
