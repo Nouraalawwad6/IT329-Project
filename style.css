@@ -1,3 +1,72 @@
+/* 
+ ===== header =====
+ */  
+/* ===== NAVY HEADER ===== */
+.wf-header{
+  background:#1f2f46;
+  height:160px;                
+  display:flex;
+  align-items:center;
+  box-shadow:0 8px 24px rgba(0,0,0,.18);
+}
+.wf-header-inner{
+  max-width:1100px;
+  width:100%;
+  margin:auto;
+  padding:0 20px;
+  display:flex;
+  align-items:center;
+}
+.logo-box{
+  width:56px;
+  height:56px;
+  border-radius:14px;
+  background:rgba(255,255,255,.18);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.logo-box img{
+  height:40px;
+}
+/* ===== BREADCRUMB  ===== */
+.wf-breadcrumb-bar{
+  background:#f5f2ec;
+  border-bottom:1px solid rgba(31,47,70,.12);
+}
+.wf-breadcrumb-inner{
+  max-width:1100px;
+  margin:auto;
+  padding:1px 1px;
+}
+.wf-breadcrumbs{
+  list-style:none;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:14.5px;
+}
+.wf-breadcrumbs a{
+  color:#1f2f46;
+  text-decoration:none;
+  font-weight:600;
+  opacity:.8;
+}
+.wf-breadcrumbs a:hover{
+  opacity:1;
+  text-decoration:underline;
+}
+.wf-breadcrumbs .separator{
+  color:rgba(31,47,70,.45);
+}
+.wf-breadcrumbs .current{
+  font-weight:700;
+  color:#1f2f46;
+}
+
+
+
+
 /* ---------- Base ---------- */
 * {
   box-sizing: border-box;
