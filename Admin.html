@@ -10,11 +10,30 @@
 <body>
   <main class="admin-page">
 
-    <!-- Header -->
-    <header class="admin-header">
-      <h2>Welcome <span class="admin-name">Noor</span></h2>
+<!-- ===== HEADER ===== -->
+<header class="wf-header">
+  <div class="wf-header-inner">
+    <div class="logo-box">
+      <!-- <img src="images/logo.png" alt="Logo"> -->
+    </div>
+  </div>
+</header>
+
+<!-- ===== BREADCRUMB ===== -->
+<div class="wf-breadcrumb-bar">
+  <div class="wf-breadcrumb-inner">
+    <ol class="wf-breadcrumbs">
+      <li><a href="Admin.html">Admin page</a></li>
+      <li class="separator">/</li>
+      <li><a href="ViewRecipe.html">Recipes</a></li>
+    </ol>
+  </div>
+</div>
+<!-- Admin header -->
+<section class="admin-header">
+      <h2>Welcome To the Admin Panel <span class="admin-name">Noor</span></h2>
       <a href="home.html" class="admin-logout">Log-out</a>
-    </header>
+    </section>
 
     <!-- Admin Info -->
     <section class="admin-box">
@@ -40,13 +59,13 @@
           <tr>
             <td>
               <a href="ViewRecipe.html" class="admin-link">
-                Low-Carb Cheesecake
+                Classic Hot Chocolate
               </a>
             </td>
 
             <td>
-              Noor<br>
-              <img src="default-profile.png" class="admin-img">
+              Sara<br>
+             <img src="./images/profile.png" alt="Sara's Profile" class="admin-img">
             </td>
 
             <td>
@@ -63,6 +82,84 @@
               </form>
             </td>
           </tr>
+          <tr>
+            <td>
+              
+                Low-Carb Cheesecake
+              </a>
+            </td>
+
+            <td>
+              Manar<br>
+              <img src="./images/profile.png" alt="Manar's Profile" class="admin-img">
+            </td>
+
+            <td>
+              <form action="admin.html">
+                <label>
+                  <input type="radio" name="r1" required>
+                  Block User
+                </label><br>
+                <label>
+                  <input type="radio" name="r1">
+                  Dismiss
+                </label><br><br>
+                <button class="admin-btn">Submit</button>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td>
+                Chicken Cream Soup
+              </a>
+            </td>
+
+            <td>
+              Ahmad<br>
+              <img src="./images/profile.png" alt="Ahmad's Profile" class="admin-img">
+            </td>
+
+            <td>
+              <form action="admin.html">
+                <label>
+                  <input type="radio" name="r1" required>
+                  Block User
+                </label><br>
+                <label>
+                  <input type="radio" name="r1">
+                  Dismiss
+                </label><br><br>
+                <button class="admin-btn">Submit</button>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td>
+             
+                Roasted Pumpkin
+              </a>
+            </td>
+
+            <td>
+              Bader<br>
+              <img src="./images/profile.png" alt="Bader's Profile" class="admin-img">
+            </td>
+
+            <td>
+              <form action="admin.html">
+                <label>
+                  <input type="radio" name="r1" required>
+                  Block User
+                </label><br>
+                <label>
+                  <input type="radio" name="r1">
+                  Dismiss
+                </label><br><br>
+                <button class="admin-btn">Submit</button>
+              </form>
+            </td>
+          </tr>
+          
         </tbody>
       </table>
     </section>
@@ -82,7 +179,17 @@
         <tbody>
           <tr>
             <td>Omar Khalid</td>
-            <td>omar@email.com</td>
+            <td>omar@gmail.com</td>
+          </tr>
+
+          <tr>
+            <td>Shadin Bader</td>
+            <td>shadin@gmail.com</td>
+          </tr>
+
+          <tr>
+            <td>Faisal Mohammed</td>
+            <td>faisal@gmail.com</td>
           </tr>
         </tbody>
       </table>
