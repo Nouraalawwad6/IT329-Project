@@ -535,7 +535,7 @@ body {
    USER PAGE – WINTER STYLE
 ========================= */
 body {
-  margin: 0;
+  
   background: #f5f2ec;
   font-family: "Inter", sans-serif;
   color: #1f2f46;
@@ -547,12 +547,6 @@ body {
   padding: 20px;
 }
 
-.user-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-}
 
 .logout {
   font-weight: 700;
