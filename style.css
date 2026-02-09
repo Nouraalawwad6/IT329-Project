@@ -532,10 +532,10 @@ body {
   opacity: 0.85;
 }
 /* =========================
-   USER PAGE – WINTER STYLE
+   USER PAGE 
 ========================= */
+
 body {
-  
   background: #f5f2ec;
   font-family: "Inter", sans-serif;
   color: #1f2f46;
@@ -547,14 +547,7 @@ body {
   padding: 20px;
 }
 
-
-.logout {
-  font-weight: 700;
-  text-decoration: none;
-  color: #1f2f46;
-  border-bottom: 2px solid #1f2f46;
-}
-
+/* ===== Boxes ===== */
 .box {
   background: #ffffff;
   border-radius: 16px;
@@ -568,6 +561,7 @@ body {
   font-family: "Playfair Display", serif;
 }
 
+/* ===== My Info ===== */
 .info-box {
   display: flex;
   justify-content: space-between;
@@ -581,6 +575,7 @@ body {
   object-fit: cover;
 }
 
+/* ===== Filter ===== */
 .filter {
   display: flex;
   gap: 10px;
@@ -603,21 +598,25 @@ select {
   cursor: pointer;
 }
 
+/* ===== Tables ===== */
 table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
 th, td {
   border: 1px solid rgba(0,0,0,0.15);
   padding: 10px;
   text-align: center;
+  word-wrap: break-word;
 }
 
 th {
   background: #e6ebf3;
 }
 
+/* ===== Links ===== */
 .link {
   color: #1f2f46;
   font-weight: 700;
@@ -625,19 +624,7 @@ th {
   border-bottom: 2px solid #1f2f46;
 }
 
-.table-img {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.creator-img {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  margin-top: 5px;
-}
+/* ===== Images ===== */
 .recipe-photo {
   width: 70px;
   height: 70px;
@@ -652,31 +639,38 @@ th {
   margin-top: 5px;
   object-fit: cover;
 }
-table {
-  table-layout: fixed;
+
+/* ===== Header ===== */
+.wf-header {
+  background: #1f2f46;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
 }
 
-td, th {
-  word-wrap: break-word;
+.wf-header-inner {
+  max-width: 1100px;
+  width: 100%;
+  margin: auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-
 
 .welcome-text {
   font-size: 20px;
-  font-weight: 700; 
-  color: #ffffff;  
+  font-weight: 700;
+  color: #ffffff;
   margin: 0;
 }
 
-
 .logout {
-  position: absolute;      
-  right: 250px;                
   font-weight: 700;
   text-decoration: none;
   color: #ffffff;
   border-bottom: 2px solid #ffffff;
-  padding-bottom: 2px;
 }
 
 
