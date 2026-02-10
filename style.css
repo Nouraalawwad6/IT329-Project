@@ -4,23 +4,28 @@
 /* ===== NAVY HEADER ===== */
 .wf-header{
   background:#1f2f46;
-  height:160px;                
+  height:160px;
   display:flex;
   align-items:center;
   box-shadow:0 8px 24px rgba(0,0,0,.18);
+  position:relative;  
 }
+
 .wf-header-inner{
-  max-width:1100px;
+  max-width:1200px;
   width:100%;
   margin:auto;
-  padding:0 20px;
+  padding:0 40px;
   display:flex;
   align-items:center;
+  justify-content:space-between;
 }
+
 #Logo{
- height: 200%;
-  width: auto;
+  height:72px;
+  width:auto;
 }
+
 .logo-box{
   width:auto;
   height:56px;
@@ -641,12 +646,6 @@ th {
 }
 
 
-.welcome-text {
-  font-size: 20px;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0;
-}
 
 .logout {
   font-weight: 700;
@@ -654,6 +653,19 @@ th {
   color: #ffffff;
   border-bottom: 2px solid #ffffff;
 }
+.header-center{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+}
+
+.welcome-text{
+  font-size:24px;
+  font-weight:600;
+  color:#ffffff;
+  margin:0;
+}
+
 
 
 
