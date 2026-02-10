@@ -747,6 +747,10 @@ th {
   margin-top: 5px;
 }
 
+.admin-link:hover{
+ opacity: 0.7;
+}
+
 .admin-btn {
   padding: 8px 20px;
   border-radius: 999px;
@@ -988,10 +992,10 @@ th {
 
 
 
-/*---------------add and my ------------*/
+/*---------------add and myRecipes ------------*/
 
 /* =============================
-   MY RECIPES (same look, new selectors)
+  
 ============================= */
 
 /* Optional: if you want same background image overlay for MyRecipes too */
@@ -1230,4 +1234,225 @@ th {
   .ar-row{ grid-template-columns:1fr; }
   .ar-actions{ flex-direction:column; }
   .ar-btn{ width:100%; }
+}
+
+
+/* ===== Edit Recipe Page Style  ===== */
+
+/* Reset & Base */
+.edit-page-bg *{
+  box-sizing: border-box;
+}
+
+.edit-page-bg{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  color:#0e1424;
+
+  min-height:100vh;
+  background:
+    linear-gradient(rgba(14,20,36,0.55), rgba(14,20,36,0.55)),
+    url("images/cooking.jpg");
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+}
+
+
+.edit-page-bg{
+  --dark:#0e1424;
+  --mid:#374254;
+  --soft:#8a8fa3;
+  --lightblue:#adbbc6;
+  --light:#ececec;
+
+  --card:rgba(255,255,255,0.93);
+  --border:rgba(14,20,36,0.12);
+  --shadow:0 18px 50px rgba(0,0,0,0.2);
+  --radius:18px;
+}
+
+/* Layout */
+.edit-page-bg .edit-page{
+  max-width:850px;
+  margin:auto;
+  padding:50px 16px 70px;
+}
+
+.edit-page-bg .edit-hero{
+  text-align:center;
+  margin-bottom:18px;
+}
+
+.edit-page-bg .edit-title{
+  color:white;
+  font-size:38px;
+  margin:0;
+}
+
+.edit-page-bg .edit-subtitle{
+  color:#d7dbe2;
+  margin-top:8px;
+}
+
+/* Card */
+.edit-page-bg .edit-card{
+  background:var(--card);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  border:1px solid var(--border);
+  padding:24px;
+  backdrop-filter: blur(6px);
+}
+
+/* Form */
+.edit-page-bg .edit-form{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.edit-page-bg .edit-field label{
+  font-weight:600;
+  font-size:14px;
+  margin-bottom:6px;
+  display:block;
+}
+
+.edit-page-bg .edit-form input,
+.edit-page-bg .edit-form textarea,
+.edit-page-bg .edit-form select{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:white;
+  font-size:14px;
+}
+
+.edit-page-bg .edit-form textarea{
+  min-height:110px;
+  resize:vertical;
+}
+
+.edit-page-bg .edit-form input:focus,
+.edit-page-bg .edit-form textarea:focus,
+.edit-page-bg .edit-form select:focus{
+  outline:none;
+  border-color:var(--soft);
+  box-shadow:0 0 0 4px rgba(138,143,163,0.25);
+}
+
+
+.edit-page-bg .edit-grid-2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.edit-page-bg .edit-row{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:10px;
+}
+
+.edit-page-bg .edit-stack{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.edit-page-bg .edit-section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:6px;
+}
+
+.edit-page-bg .edit-section-title h3{
+  margin:0;
+}
+
+
+.edit-page-bg .edit-current-box{
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:#fff;
+  padding:10px;
+  min-height:52px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.edit-page-bg #currentPhotoImg{
+  max-width:150px;
+  border-radius:10px;
+  display:block;
+}
+
+/* Buttons */
+.edit-page-bg .edit-btn{
+  padding:11px 16px;
+  border-radius:12px;
+  border:none;
+  font-weight:700;
+  cursor:pointer;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* Primary */
+.edit-page-bg .edit-btn-primary{
+  background:var(--dark);
+  color:white;
+}
+.edit-page-bg .edit-btn-primary:hover{
+  background:var(--mid);
+}
+
+/* Outline */
+.edit-page-bg .edit-btn-outline{
+  background:transparent;
+  border:2px solid var(--soft);
+  color:var(--dark);
+}
+.edit-page-bg .edit-btn-outline:hover{
+  background:var(--lightblue);
+}
+
+
+.edit-page-bg .edit-btn-ghost{
+  background:rgba(138,143,163,0.18);
+  border:1px solid rgba(138,143,163,0.3);
+  color:var(--dark);
+}
+.edit-page-bg .edit-btn-ghost:hover{
+  background:rgba(138,143,163,0.35);
+}
+
+
+.edit-page-bg .edit-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  margin-top:10px;
+}
+
+/* Responsive */
+@media(max-width:760px){
+  .edit-page-bg .edit-grid-2{
+    grid-template-columns:1fr;
+  }
+  .edit-page-bg .edit-row{
+    grid-template-columns:1fr;
+  }
+  .edit-page-bg .edit-actions{
+    flex-direction:column;
+  }
+  .edit-page-bg .edit-btn{
+    width:100%;
+  }
 }

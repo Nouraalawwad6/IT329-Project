@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Recipe</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="edit-page-bg">
+<!-- ===== HEADER ===== -->
+<header class="wf-header">
+  <div class="wf-header-inner">
+    <div class="logo-box">
+    <!-- <img src="images/logo.png" alt="Logo"> -->
+    </div>
+    
+  </div>
+</header>
+</div>
+
+  <main class="edit-page">
+    <section class="edit-hero">
+      <h1 class="edit-title">Edit Recipe</h1>
+      <p class="edit-subtitle">
+        Update the details below. Use the buttons to add more ingredients and instruction steps.
+      </p>
+    </section>
+
+    <section class="edit-card">
+      <form id="editRecipeForm" class="edit-form">
+
+        <div class="edit-grid-2">
+          <div class="edit-field">
+            <label for="editRecipeName">Recipe Name</label>
+            <input id="editRecipeName" type="text" required value="High-Protein Snack">
+          </div>
+
+          <div class="edit-field">
+            <label for="editCategory">Category</label>
+            <select id="editCategory" required>
+              <option value="">Select</option>
+              <option selected>Hot Drinks</option>
+              <option>Winter Sweets</option>
+              <option>Soups & Warm Meals</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="edit-field">
+          <label for="editDescription">Description</label>
+          <textarea id="editDescription" required>This recipe is healthy and delicious...</textarea>
+        </div>
+
+        <!-- Upload new photo (optional) + current photo -->
+        <div class="edit-grid-2">
+          <div class="edit-field">
+            <label for="editPhoto">Upload New Recipe Photo (Optional)</label>
+            <input id="editPhoto" type="file" accept="image/*">
+          </div>
+
+          <div class="edit-field">
+            <label>Current Photo</label>
+            <div class="edit-current-box" id="currentPhotoBox">
+              <img id="currentPhotoImg" src="images/recipe1.jpg" alt="Current recipe photo">
+            </div>
+          </div>
+        </div>
+
+        <div class="edit-section-title">
+          <h3>Ingredients</h3>
+          <button type="button" id="editAddIngredientBtn" class="edit-btn edit-btn-ghost">+ Add ingredient</button>
+        </div>
+
+        <div id="editIngredientsContainer" class="edit-stack">
+          <div class="edit-row edit-ingredient-row">
+            <input id="editIngName1" type="text" placeholder="Ingredient name" required value="Greek Yogurt">
+            <input id="editIngQty1" type="text" placeholder="Quantity" required value="1 cup">
+          </div>
+        </div>
+
+        <div class="edit-section-title">
+          <h3>Instructions</h3>
+          <button type="button" id="editAddInstructionBtn" class="edit-btn edit-btn-ghost">+ Add step</button>
+        </div>
+
+        <div id="editInstructionsContainer" class="edit-stack">
+          <input id="editStep1" type="text" placeholder="Step 1" required value="Mix ingredients well.">
+        </div>
+
+        <!-- Video -->
+        <div class="edit-section-title">
+          <h3>Video (Optional)</h3>
+        </div>
+
+        <div class="edit-grid-2">
+          <div class="edit-field">
+            <label for="editVideoFile">Upload New Video (Optional)</label>
+            <input id="editVideoFile" type="file" accept="video/*">
+          </div>
+
+          <div class="edit-field">
+            <label>Current Video</label>
+            <div class="edit-current-box" id="currentVideoBox">
+              <span id="currentVideoLabel">high-protein.mp4</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="edit-field">
+          <label for="editVideoUrl">Video URL (Optional)</label>
+          <input id="editVideoUrl" type="url" placeholder="https://..." value="https://youtube.com/...">
+        </div>
+
+        <div class="edit-actions">
+          <a class="edit-btn edit-btn-outline" href="MyRecipes.html">Cancel</a>
+          <button type="submit" class="edit-btn edit-btn-primary" id="editSubmitBtn">Update Recipe</button>
+        </div>
+
+      </form>
+    </section>
+  </main>
+
+  <script src="script2.js"></script>
+</body>
+</html>

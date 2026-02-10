@@ -218,7 +218,7 @@ document.getElementById("addIngredientBtn").addEventListener("click", () => {
   const container = document.getElementById("ingredientsContainer");
 
   const div = document.createElement("div");
-  div.className = "row";
+  div.className = "ar-row";
 
   div.innerHTML = `
     <input type="text" placeholder="Ingredient name" required>
