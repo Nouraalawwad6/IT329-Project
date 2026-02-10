@@ -1,1 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Recipes</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="page-bg">
 
+
+
+  <main class="container">
+    <section class="card">
+      <div class="card-header">
+        <h2>My Recipes</h2>
+        <a class="btn" href="add-recipe.html">Add New Recipe</a>
+      </div>
+
+      <div class="table-wrap">
+        <table class="table" id="myRecipesTable">
+          <thead>
+            <tr>
+              <th>Recipe</th>
+              <th>Ingredients</th>
+              <th>Instructions</th>
+              <th>Video</th>
+              <th>Number of Likes</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Filled by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <p class="hint">
+        *Phase 1 note: Delete is not functional (it will just redirect back to this page).
+      </p>
+    </section>
+  </main>
+
+  <script src="recipesData.js"></script>
+  <script src="MyRecipes.js"></script>
+</body>
+</html>
