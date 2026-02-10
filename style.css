@@ -763,6 +763,10 @@ th {
   margin-top: 5px;
 }
 
+.admin-link:hover{
+ opacity: 0.7;
+}
+
 .admin-btn {
   padding: 8px 20px;
   border-radius: 999px;
