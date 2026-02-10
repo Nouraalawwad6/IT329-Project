@@ -20,7 +20,6 @@ function filterRecipes() {
         : "none";
   });
 }
-
 /* Handle sign up form and save profile image */
 const signupForm = document.getElementById("signupForm"); // Sign up form
 const imageInput = document.getElementById("imageInput"); // Profile image input
