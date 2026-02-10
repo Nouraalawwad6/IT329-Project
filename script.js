@@ -83,3 +83,171 @@ window.addEventListener("load", function () {
     ? savedImage
     : "./images/comments.png";
 });
+
+
+
+/*----------------------MY RECIPES-------------------*/
+
+
+const tbody = document.querySelector("#myRecipesTable tbody");
+
+function createRecipeCell(recipe) {
+  const td = document.createElement("td");
+
+  const wrap = document.createElement("div");
+  wrap.className = "recipe-cell";
+
+  const img = document.createElement("img");
+  img.className = "thumb";
+  img.alt = recipe.name;
+  img.src = recipe.photo || DEFAULT_RECIPE_PHOTO;
+  img.onerror = () => { img.src = DEFAULT_RECIPE_PHOTO; };
+
+  const info = document.createElement("div");
+
+  const a = document.createElement("a");
+  a.className = "link";
+  a.href = `view-recipe.html?id=${recipe.id}`;  // placeholder
+  a.textContent = recipe.name;
+
+  info.appendChild(a);
+  wrap.appendChild(img);
+  wrap.appendChild(info);
+  td.appendChild(wrap);
+
+  return td;
+}
+
+function createIngredientsCell(ingredients) {
+  const td = document.createElement("td");
+  const ul = document.createElement("ul");
+  ul.className = "mini-list";
+
+  ingredients.forEach(x => {
+    const li = document.createElement("li");
+    li.textContent = `${x.item} - ${x.qty}`;
+    ul.appendChild(li);
+  });
+
+  td.appendChild(ul);
+  return td;
+}
+
+function createInstructionsCell(steps) {
+  const td = document.createElement("td");
+  const ol = document.createElement("ol");
+  ol.className = "mini-list";
+
+  steps.forEach(step => {
+    const li = document.createElement("li");
+    li.textContent = step;
+    ol.appendChild(li);
+  });
+
+  td.appendChild(ol);
+  return td;
+}
+
+function createVideoCell(url) {
+  const td = document.createElement("td");
+  if (!url) {
+    td.textContent = "No video for recipe";
+    td.className = "muted";
+    return td;
+  }
+  const a = document.createElement("a");
+  a.className = "link";
+  a.href = url;
+  a.target = "_blank";
+  a.rel = "noopener noreferrer";
+  a.textContent = "Video link";
+  td.appendChild(a);
+  return td;
+}
+
+function createTextCell(text) {
+  const td = document.createElement("td");
+  td.textContent = text;
+  return td;
+}
+
+function createEditCell(recipe) {
+  const td = document.createElement("td");
+  const a = document.createElement("a");
+  a.className = "link";
+  a.href = `edit-recipe.html?id=${recipe.id}`; // placeholder
+  a.textContent = "Edit";
+  td.appendChild(a);
+  return td;
+}
+
+function createDeleteCell(recipe) {
+  const td = document.createElement("td");
+  const a = document.createElement("a");
+  a.className = "link danger";
+  a.href = "my-recipes.html"; // not functional in phase 1
+  a.textContent = "Delete";
+  td.appendChild(a);
+  return td;
+}
+
+function renderTable() {
+  tbody.innerHTML = "";
+
+  MY_RECIPES.forEach(recipe => {
+    const tr = document.createElement("tr");
+
+    tr.appendChild(createRecipeCell(recipe));
+    tr.appendChild(createIngredientsCell(recipe.ingredients));
+    tr.appendChild(createInstructionsCell(recipe.instructions));
+    tr.appendChild(createVideoCell(recipe.videoUrl));
+    tr.appendChild(createTextCell(String(recipe.likes)));
+    tr.appendChild(createEditCell(recipe));
+    tr.appendChild(createDeleteCell(recipe));
+
+    tbody.appendChild(tr);
+  });
+}
+
+renderTable();
+
+/*----------------------Add recipe--------------------*/
+
+// Add Ingredient
+document.getElementById("addIngredientBtn").addEventListener("click", () => {
+  const container = document.getElementById("ingredientsContainer");
+
+  const div = document.createElement("div");
+  div.className = "row";
+
+  div.innerHTML = `
+    <input type="text" placeholder="Ingredient name" required>
+    <input type="text" placeholder="Quantity" required>
+  `;
+
+  container.appendChild(div);
+});
+
+// Add Instruction
+let stepCount = 1;
+
+document.getElementById("addInstructionBtn").addEventListener("click", () => {
+  stepCount++;
+
+  const container = document.getElementById("instructionsContainer");
+  const input = document.createElement("input");
+
+  input.type = "text";
+  input.placeholder = `Step ${stepCount}`;
+  input.required = true;
+
+  container.appendChild(input);
+});
+
+// Submit form
+document.getElementById("addRecipeForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  // Phase 1: no saving, just redirect
+  window.location.href = "MyRecipes.html";
+});
