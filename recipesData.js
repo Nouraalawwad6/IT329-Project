@@ -5,7 +5,7 @@ const MY_RECIPES = [
   {
     id: 1,
     name: "Hot Chocolate",
-    photo: "images/IMG_4461.png",
+    photo: "",
     ingredients: [
       { item: "Milk", qty: "1 cup" },
       { item: "Cocoa powder", qty: "2 tbsp" },
@@ -22,7 +22,7 @@ const MY_RECIPES = [
   {
     id: 2,
     name: "Cinnamon Apple Pie",
-    photo: "images/IMG_4462.png",
+    photo: "",
     ingredients: [
       { item: "Apples", qty: "2 cups" },
       { item: "Cinnamon", qty: "1 tsp" },
@@ -55,4 +55,4 @@ const MY_RECIPES = [
   }
 ];
 // Optional: a helper for default image (if missing file)
-const DEFAULT_RECIPE_PHOTO = "images/IMG_4464.png";
+const DEFAULT_RECIPE_PHOTO = "";
