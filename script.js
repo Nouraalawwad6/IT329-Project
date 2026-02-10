@@ -210,3 +210,44 @@ function renderTable() {
 }
 
 renderTable();
+
+/*----------------------Add recipe--------------------*/
+
+// Add Ingredient
+document.getElementById("addIngredientBtn").addEventListener("click", () => {
+  const container = document.getElementById("ingredientsContainer");
+
+  const div = document.createElement("div");
+  div.className = "row";
+
+  div.innerHTML = `
+    <input type="text" placeholder="Ingredient name" required>
+    <input type="text" placeholder="Quantity" required>
+  `;
+
+  container.appendChild(div);
+});
+
+// Add Instruction
+let stepCount = 1;
+
+document.getElementById("addInstructionBtn").addEventListener("click", () => {
+  stepCount++;
+
+  const container = document.getElementById("instructionsContainer");
+  const input = document.createElement("input");
+
+  input.type = "text";
+  input.placeholder = `Step ${stepCount}`;
+  input.required = true;
+
+  container.appendChild(input);
+});
+
+// Submit form
+document.getElementById("addRecipeForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  // Phase 1: no saving, just redirect
+  window.location.href = "MyRecipes.html";
+});
