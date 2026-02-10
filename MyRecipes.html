@@ -4,21 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>My Recipes</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="page-bg">
 
+<body class="mr-page-bg">
 
-
-  <main class="container">
-    <section class="card">
-      <div class="card-header">
+  <main class="mr-container">
+    <section class="mr-card">
+      <div class="mr-card-header">
         <h2>My Recipes</h2>
-        <a class="btn" href="add-recipe.html">Add New Recipe</a>
+        <a class="mr-btn" href="add-recipe.html">Add New Recipe</a>
       </div>
 
-      <div class="table-wrap">
-        <table class="table" id="myRecipesTable">
+      <div class="mr-table-wrap">
+        <table class="mr-table" id="myRecipesTable">
           <thead>
             <tr>
               <th>Recipe</th>
@@ -36,13 +35,13 @@
         </table>
       </div>
 
-      <p class="hint">
+      <p class="mr-hint">
         *Phase 1 note: Delete is not functional (it will just redirect back to this page).
       </p>
     </section>
   </main>
 
   <script src="recipesData.js"></script>
-  <script src="script.js"></script>
+  <script src="MyRecipes.js"></script>
 </body>
 </html>

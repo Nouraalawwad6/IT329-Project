@@ -3,29 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <title>Add New Recipe</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="page-bg">
+<body class="ar-page-bg">
 
-  <main class="page">
-    <section class="hero">
-      <h1 class="title">Add New Recipe</h1>
-      <p class="subtitle">
+  <main class="ar-page">
+    <section class="ar-hero">
+      <h1 class="ar-title">Add New Recipe</h1>
+      <p class="ar-subtitle">
         Fill in the details below. Use the buttons to add more ingredients and instruction steps.
       </p>
     </section>
 
-    <section class="card">
-      <form id="addRecipeForm" class="form">
+    <section class="ar-card">
+      <form id="addRecipeForm" class="ar-form">
 
-        <div class="grid-2">
-          <div class="field">
+        <div class="ar-grid-2">
+          <div class="ar-field">
             <label for="recipeName">Recipe Name</label>
             <input id="recipeName" type="text" required>
           </div>
 
-          <div class="field">
+          <div class="ar-field">
             <label for="category">Category</label>
             <select id="category" required>
               <option value="">Select</option>
@@ -36,63 +36,62 @@
           </div>
         </div>
 
-        <div class="field">
+        <div class="ar-field">
           <label for="description">Description</label>
           <textarea id="description" required></textarea>
         </div>
 
-        <div class="field">
+        <div class="ar-field">
           <label for="photo">Upload Recipe Photo</label>
           <input id="photo" type="file" accept="image/*" required>
         </div>
 
-        <div class="section-title">
+        <div class="ar-section-title">
           <h3>Ingredients</h3>
-          <button type="button" id="addIngredientBtn" class="btn btn-ghost">+ Add ingredient</button>
+          <button type="button" id="addIngredientBtn" class="ar-btn ar-btn-ghost">+ Add ingredient</button>
         </div>
 
-        <div id="ingredientsContainer" class="stack">
-          <div class="row">
+        <div id="ingredientsContainer" class="ar-stack">
+          <div class="ar-row">
             <input type="text" placeholder="Ingredient name" required>
             <input type="text" placeholder="Quantity" required>
           </div>
         </div>
 
-        <div class="section-title">
+        <div class="ar-section-title">
           <h3>Instructions</h3>
-          <button type="button" id="addInstructionBtn" class="btn btn-ghost">+ Add step</button>
+          <button type="button" id="addInstructionBtn" class="ar-btn ar-btn-ghost">+ Add step</button>
         </div>
 
-        <div id="instructionsContainer" class="stack">
+        <div id="instructionsContainer" class="ar-stack">
           <input type="text" placeholder="Step 1" required>
         </div>
 
-        <div class="section-title">
+        <div class="ar-section-title">
           <h3>Video (Optional)</h3>
         </div>
 
-        <div class="grid-2">
-          <div class="field">
+        <div class="ar-grid-2">
+          <div class="ar-field">
             <label for="videoFile">Upload Video</label>
             <input id="videoFile" type="file" accept="video/*">
           </div>
 
-          <div class="field">
+          <div class="ar-field">
             <label for="videoUrl">Video URL</label>
             <input id="videoUrl" type="url" placeholder="https://...">
           </div>
         </div>
 
-        <div class="actions">
-          <a class="btn btn-outline" href="MyRecipes.html">Cancel</a>
-          <button type="submit" class="btn btn-primary">Add Recipe</button>
+        <div class="ar-actions">
+          <a class="ar-btn ar-btn-outline" href="MyRecipes.html">Cancel</a>
+          <button type="submit" class="ar-btn ar-btn-primary">Add Recipe</button>
         </div>
 
       </form>
     </section>
   </main>
 
-  <script src="script.js"></script>
+  <script src="add-recipe.js"></script>
 </body>
-
 </html>
