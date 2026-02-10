@@ -17,18 +17,19 @@
   display:flex;
   align-items:center;
 }
+#Logo{
+ height: 200%;
+  width: auto;
+}
 .logo-box{
-  width:56px;
+  width:auto;
   height:56px;
   border-radius:14px;
-  background:rgba(255,255,255,.18);
   display:flex;
   align-items:center;
   justify-content:center;
 }
-.logo-box img{
-  height:40px;
-}
+
 /* ===== BREADCRUMB  ===== */
 
 .wf-breadcrumb-inner{
@@ -668,7 +669,7 @@ th {
   color: #1f2f46;
 }
 
-.admin-header {
+.admin-p {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -676,18 +677,17 @@ th {
 }
 
 
-.admin-header-content {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .admin-welcome {
   color: #ffffff;
   font-size: 28px;
-  margin-left: 40px;
+  margin: 0px;
   font-weight: 700;
+  
+}
+
+.admin-welcome::before{
+  display: block;
+ 
 }
 
 .admin-name {
