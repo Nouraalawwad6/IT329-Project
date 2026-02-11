@@ -84,7 +84,7 @@ window.addEventListener("load", function () {
     : "./images/comments.png";
 });
 // =========================
-// MY RECIPES (Table render)
+// MY RECIPES 
 // =========================
 const tbody = document.querySelector("#myRecipesTable tbody");
 
@@ -105,7 +105,7 @@ if (tbody) {
 
     const a = document.createElement("a");
     a.className = "link";
-    a.href = `view-recipe.html?id=${recipe.id}`;  // placeholder
+    a.href = `ViewRecipe.html?id=${recipe.id}`;  
     a.textContent = recipe.name;
 
     info.appendChild(a);
@@ -192,7 +192,7 @@ if (tbody) {
   function renderTable() {
     tbody.innerHTML = "";
 
-    // حماية إضافية: لو MY_RECIPES مو موجودة لا يطيح
+    
     if (typeof MY_RECIPES === "undefined") {
       console.error("MY_RECIPES is not defined. تأكدي recipesData.js ينقرأ قبل script.js");
       return;
@@ -216,7 +216,7 @@ if (tbody) {
   renderTable();
 }
 // ==========================
-// ADD RECIPE (buttons + submit)
+// ADD RECIPE 
 // ==========================
 const addIngredientBtn = document.getElementById("addIngredientBtn");
 const ingredientsContainer = document.getElementById("ingredientsContainer");
@@ -226,7 +226,7 @@ if (addIngredientBtn && ingredientsContainer) {
     const div = document.createElement("div");
 
    
-    div.className = "ar-row";   // أو "row" حسب كلاس CSS اللي تبينه
+    div.className = "ar-row";   
 
     div.innerHTML = `
       <input type="text" placeholder="Ingredient name" required>

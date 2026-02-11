@@ -999,13 +999,10 @@ th {
 
 
 
-/*---------------add and myRecipes ------------*/
+/*--------------- myRecipes ------------*/
 
-/* =============================
-  
-============================= */
 
-/* Optional: if you want same background image overlay for MyRecipes too */
+
 .mr-page-bg{
   min-height:100vh;
   background:
@@ -1083,7 +1080,7 @@ th {
 
 
 /* =============================
-   ADD RECIPE (same look, new selectors)
+   ADD RECIPE 
 ============================= */
 
 .ar-page-bg{
@@ -1140,7 +1137,7 @@ th {
   display:block;
 }
 
-/* Scoped inputs: same style, but only inside add-recipe form */
+
 .ar-form input,
 .ar-form textarea,
 .ar-form select{
@@ -1206,14 +1203,14 @@ th {
   justify-content:center;
 }
 
-/* Primary */
+
 .ar-btn-primary{
   background:#0e1424;
   color:white;
 }
 .ar-btn-primary:hover{ background:#374254; }
 
-/* Outline */
+
 .ar-btn-outline{
   background:transparent;
   border:2px solid #8a8fa3;
@@ -1221,7 +1218,7 @@ th {
 }
 .ar-btn-outline:hover{ background:#adbbc6; }
 
-/* Ghost */
+
 .ar-btn-ghost{
   background:rgba(138,143,163,0.18);
   border:1px solid rgba(138,143,163,0.3);
@@ -1464,7 +1461,7 @@ th {
 
 
 /* =============================
-   MyRecipes override (DO NOT TOUCH GLOBAL)
+   MyRecipes override 
   
 ============================= */
 
@@ -1472,7 +1469,7 @@ th {
 .mr-table-wrap .mr-table{
   width: 100%;
   border-collapse: collapse;
-  table-layout: auto;     /* يغلب fixed */
+  table-layout: auto;    
   min-width: 900px;
 }
 
@@ -1493,7 +1490,7 @@ th {
   color: #374254;
 }
 
-/* (اختياري) خطوط أخف داخل الجدول */
+
 .mr-table-wrap .mr-table td{
   background: transparent;
 }
@@ -1505,13 +1502,37 @@ th {
 .mr-table-wrap .mr-table td:nth-child(6),
 .mr-table-wrap .mr-table th:nth-child(7),
 .mr-table-wrap .mr-table td:nth-child(7){
-  min-width: 80px;      /* وسّع العمود */
-  white-space: nowrap;  /* يمنع نزول النص */
+  min-width: 80px;      
+  white-space: nowrap;  
   text-align: center;
 }
 
-/* لو الرابط نفسه ينكسر */
+
 .mr-table-wrap .mr-table td a{
   display:inline-block;
   white-space: nowrap;
+}
+
+
+
+/* ===== Fix recipe thumbnail size in MyRecipes only ===== */
+#myRecipesTable .thumb{
+  width: 70px !important;
+  height: 70px !important;
+  max-width: 70px !important;
+  max-height: 70px !important;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+}
+
+
+#myRecipesTable .recipe-cell{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#myRecipesTable .recipe-cell .thumb{
+  flex: 0 0 70px;
 }

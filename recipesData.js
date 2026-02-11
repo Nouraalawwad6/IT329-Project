@@ -1,28 +1,31 @@
 // Fake placeholder data for Phase 1
 
-
 const MY_RECIPES = [
   {
     id: 1,
     name: "Hot Chocolate",
-    photo: "",
+    photo: "images/hot.png",
     ingredients: [
-      { item: "Milk", qty: "1 cup" },
-      { item: "Cocoa powder", qty: "2 tbsp" },
-      { item: "Sugar", qty: "1 tbsp" }
+      { item: "Milk", qty: "1.5 cup" },
+      { item: "chocolate protein", qty: "1/2 scoop" },
+      { item: "Honey or sweetener of choice", qty: "1 tbsp" },
+      { item: "vanilla extract", qty: "1/4 teaspoon" },
+      { item: "A pinch of sea salt", qty: "" },
     ],
     instructions: [
-      "Heat the milk in a saucepan.",
-      "Add cocoa powder and sugar.",
-      "Stir well and serve warm."
+      "Heat the milk in a pan over medium heat until it begins to gently simmer.",
+      "Whisk in the cocoa powder and protein powder until fully dissolved.",
+      "Remove from heat.",
+      "Stir in the vanilla extract and honey (or sweetener of choice).",
+      "Froth the mixture or whisk by hand, then serve and enjoy.",
     ],
-    videoUrl: "https://www.youtube.com/watch?v=3nccl60iGXw&pp=ygUUaG90IGNob2NvbGF0ZSByZWNpcGU%3D",
+    videoUrl: "https://youtu.be/k2repFoV-Vg?si=djQ-Cnqw0_MrIQ0p",
     likes: 18
   },
   {
     id: 2,
     name: "Cinnamon Apple Pie",
-    photo: "",
+    photo: "images/Cinnamon Apple Pie.png",
     ingredients: [
       { item: "Apples", qty: "2 cups" },
       { item: "Cinnamon", qty: "1 tsp" },
@@ -33,13 +36,13 @@ const MY_RECIPES = [
       "Place in pie crust.",
       "Bake until golden."
     ],
-    videoUrl: "https://www.youtube.com/watch?v=VFQsDAADPLM&pp=ygUSY2lubmFtb24gYXBwbGUgcGll",
+    videoUrl: "https://youtu.be/KBB_fD4krvc?si=Lm4MYXfCke4EJXk6",
     likes: 12
   },
   {
     id: 3,
     name: "Chicken Vegetable Soup",
-    photo: "",
+    photo: "images/IMG_4463.png",
     ingredients: [
       { item: "Chicken broth", qty: "2 cups" },
       { item: "Mixed vegetables", qty: "1 cup" },
@@ -54,5 +57,5 @@ const MY_RECIPES = [
     likes: 20
   }
 ];
-// Optional: a helper for default image (if missing file)
-const DEFAULT_RECIPE_PHOTO = "";
+
+const DEFAULT_RECIPE_PHOTO = "images/IMG_4464.png";
