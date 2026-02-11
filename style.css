@@ -1463,3 +1463,58 @@ th {
     width:100%;
   }
 }
+
+
+
+/* =============================
+   MyRecipes override (DO NOT TOUCH GLOBAL)
+  
+============================= */
+
+/* override the global table style ONLY inside MyRecipes */
+.mr-table-wrap .mr-table{
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;     /* يغلب fixed */
+  min-width: 900px;
+}
+
+.mr-table-wrap .mr-table th,
+.mr-table-wrap .mr-table td{
+  text-align: left;       
+  vertical-align: top;
+  padding: 12px 10px;
+  border: 1px solid rgba(14,20,36,0.12);   
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+/* header row */
+.mr-table-wrap .mr-table th{
+  background: rgba(236,236,236,0.65) !important;  
+  font-size: 13px;
+  color: #374254;
+}
+
+/* (اختياري) خطوط أخف داخل الجدول */
+.mr-table-wrap .mr-table td{
+  background: transparent;
+}
+
+
+/* ===== Fix Edit/Delete column squeeze ===== */
+
+.mr-table-wrap .mr-table th:nth-child(6),
+.mr-table-wrap .mr-table td:nth-child(6),
+.mr-table-wrap .mr-table th:nth-child(7),
+.mr-table-wrap .mr-table td:nth-child(7){
+  min-width: 80px;      /* وسّع العمود */
+  white-space: nowrap;  /* يمنع نزول النص */
+  text-align: center;
+}
+
+/* لو الرابط نفسه ينكسر */
+.mr-table-wrap .mr-table td a{
+  display:inline-block;
+  white-space: nowrap;
+}
