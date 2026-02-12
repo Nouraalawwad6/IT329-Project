@@ -994,7 +994,20 @@ th {
   border: none;
   box-shadow: 0 6px 14px rgba(31,47,70,0.08);
 }
+.vr-comment-top{
+  display:flex;
+  align-items:center;
+  gap:10px; 
+}
 
+.vr-comment-name{
+  min-width:70px;
+}
+
+.vr-comment-time{
+  font-size:12px;
+  color:#7a8797;
+}
 
 
 
