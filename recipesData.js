@@ -20,7 +20,7 @@ const MY_RECIPES = [
       "Froth the mixture or whisk by hand, then serve and enjoy.",
     ],
     videoUrl: "https://youtu.be/k2repFoV-Vg?si=djQ-Cnqw0_MrIQ0p",
-    likes: 18
+    likes: 45
   },
   {
     id: 2,
@@ -37,7 +37,7 @@ const MY_RECIPES = [
       "Bake until golden."
     ],
     videoUrl: "https://youtu.be/KBB_fD4krvc?si=Lm4MYXfCke4EJXk6",
-    likes: 12
+    likes: 27
   },
   {
     id: 3,
@@ -54,7 +54,7 @@ const MY_RECIPES = [
       "Simmer for 15 minutes and serve hot."
     ],
     videoUrl: "",
-    likes: 20
+    likes: 30
   }
 ];
 
