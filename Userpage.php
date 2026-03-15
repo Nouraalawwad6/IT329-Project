@@ -1,3 +1,4 @@
+<?php include("user_auth.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,8 +23,7 @@
       </h2>
     </div>
 
-    <a href="Homepage.html" class="logout">Log-out</a>
-
+<a href="logout.php" class="logout">Log-out</a>
   </div>
 </header>
 
@@ -82,7 +82,7 @@
         <tbody>
           <tr>
             <td><a href="ViewRecipe.html" class="link">Healthy Hot Chocolate</a></td>
-            <td><img src="./images/hot.png" alt="Healthy Hot Chocolate" class="recipe-photo"></td>
+            <td><img src="./images/hot chocolate.png" alt="Healthy Hot Chocolate" class="recipe-photo"></td>
             <td>Sara<br><img src="./images/profile.png" alt="Sara's Profile" class="profile-photo"></td>
             <td>45</td>
             <td>Hot Drinks</td>
@@ -97,7 +97,7 @@
           </tr>
   <tr>
             <td>Chicken Vegetable Soup</td>
-            <td><img src="./images/IMG_4463.png" alt="Chicken Vegetable Soup" class="recipe-photo"></td>
+            <td><img src="./images/Chicken Vegetable Soup.png" alt="Chicken Vegetable Soup" class="recipe-photo"></td>
             <td>Sara<br><img src="./images/profile.png" alt="Sara's Profile" class="profile-photo"></td>
             <td>30</td>
             <td>Soups & Warm Meals</td>
@@ -146,7 +146,7 @@
         <tbody>
           <tr>
             <td><a href="ViewRecipe.html" class="link">Healthy Hot Chocolate</a></td>
-            <td><img src="./images/hot.png" alt="Healthy Hot Chocolate" class="recipe-photo"></td>
+            <td><img src="./images/hot chocolate.png" alt="Healthy Hot Chocolate" class="recipe-photo"></td>
             <td><a href="Userpage.html" class="link">Remove</a></td>
           </tr>
 

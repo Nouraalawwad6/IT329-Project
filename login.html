@@ -14,8 +14,11 @@
 
       <h1 class="app-name">Login</h1>
       <p class="tagline">Welcome back to Winter Flavors</p>
+      
+<p id="loginMessage" class="error-message"></p>
 
-     <form class="login-form">
+     <form class="login-form" action="login.php" method="POST">
+
   <div class="form-group">
     <label for="email">Email Address</label>
     <input
@@ -39,9 +42,11 @@
   </div>
 
   <div class="btn-group">
-    <a href="Userpage.html" class="btn primary">Login as User</a>
-    <a href="admin.html" class="btn secondary">Login as Admin</a>
+    <button type="submit" class="btn primary">
+      Login
+    </button>
   </div>
+
 </form>
 
       <p class="new-user">
@@ -50,12 +55,13 @@
       </p>
 
       <p class="new-user">
-        Back too
+        Back to
         <a href="Homepage.html" class="link">Home</a>
       </p>
 
 
     </section>
   </main>
+    <script src="script.js"></script>
 </body>
 </html>

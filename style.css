@@ -1549,3 +1549,20 @@ th {
 #myRecipesTable .recipe-cell .thumb{
   flex: 0 0 70px;
 }
+
+/* =========================
+   ERROR MESSAGES
+========================= */
+
+
+.error-message{
+  display: none;
+  color: #b91c1c;              /* لون النص أحمر */
+  background-color: #ffe5e5;   /* خلفية حمراء فاتحة */
+  border: 1px solid #f5b5b5;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 15px;
+}

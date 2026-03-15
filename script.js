@@ -20,69 +20,7 @@ function filterRecipes() {
         : "none";
   });
 }
-/* Handle sign up form and save profile image */
-const signupForm = document.getElementById("signupForm"); // Sign up form
-const imageInput = document.getElementById("imageInput"); // Profile image input
 
-// Check if sign up form exists on the page
-if (signupForm) {
-
-  // Listen for form submission
-  signupForm.addEventListener("submit", function (e) {
-
-    // Prevent default form submission
-    e.preventDefault();
-
-    // Check if user selected an image
-    if (imageInput && imageInput.files.length > 0) {
-
-      // Get selected image file
-      const file = imageInput.files[0];
-
-      // Create FileReader to read the image
-      const reader = new FileReader();
-
-      // When image is fully read
-      reader.onload = function () {
-
-        // Save image in localStorage
-        localStorage.setItem("profileImage", reader.result);
-
-        // Redirect to user page
-        window.location.href = "Userpage.html";
-      };
-
-      // Read image as  URL
-      reader.readAsDataURL(file);
-
-    } else {
-
-      // Remove stored image if no image was uploaded
-      localStorage.removeItem("profileImage");
-
-      // Redirect to user page
-      window.location.href = "Userpage.html";
-    }
-  });
-}
-
-/* Load profile image on user page */
-window.addEventListener("load", function () {
-
-  // Get profile image element
-  const profileImg = document.getElementById("profileImage");
-
-  // Stop if profile image does not exist
-  if (!profileImg) return;
-
-  // Get saved profile image from localStorage
-  const savedImage = localStorage.getItem("profileImage");
-
-  // Use saved image or default image
-  profileImg.src = savedImage
-    ? savedImage
-    : "./images/comments.png";
-});
 // =========================
 // MY RECIPES 
 // =========================
@@ -105,7 +43,7 @@ if (tbody) {
 
     const a = document.createElement("a");
     a.className = "link";
-    a.href = `ViewRecipe.html?id=${recipe.id}`;  
+    a.href = `ViewRecipe.html?id=${recipe.id}`;
     a.textContent = recipe.name;
 
     info.appendChild(a);
@@ -173,7 +111,7 @@ if (tbody) {
     const td = document.createElement("td");
     const a = document.createElement("a");
     a.className = "link";
-    a.href = a.href = `EditRecipe.html?id=${recipe.id}`; // placeholder
+    a.href = `EditRecipe.html?id=${recipe.id}`;
     a.textContent = "Edit";
     td.appendChild(a);
     return td;
@@ -192,7 +130,6 @@ if (tbody) {
   function renderTable() {
     tbody.innerHTML = "";
 
-    
     if (typeof MY_RECIPES === "undefined") {
       console.error("MY_RECIPES is not defined. تأكدي recipesData.js ينقرأ قبل script.js");
       return;
@@ -215,6 +152,7 @@ if (tbody) {
 
   renderTable();
 }
+
 // ==========================
 // ADD RECIPE 
 // ==========================
@@ -225,8 +163,7 @@ if (addIngredientBtn && ingredientsContainer) {
   addIngredientBtn.addEventListener("click", () => {
     const div = document.createElement("div");
 
-   
-    div.className = "ar-row";   
+    div.className = "ar-row";
 
     div.innerHTML = `
       <input type="text" placeholder="Ingredient name" required>
@@ -259,4 +196,28 @@ if (addRecipeForm) {
     e.preventDefault();
     window.location.href = "MyRecipes.html";
   });
+}
+// ==========================
+// LOGIN / SIGNUP ERROR MESSAGES
+// ==========================
+const params = new URLSearchParams(window.location.search);
+const error = params.get("error");
+
+// login message
+const loginMessage = document.getElementById("loginMessage");
+if (loginMessage) {
+  if (error === "invalid") {
+    loginMessage.textContent = "Invalid email or password.";
+    loginMessage.style.display = "block";
+  } else if (error === "blocked") {
+    loginMessage.textContent = "Your account has been blocked.";
+    loginMessage.style.display = "block";
+  }
+}
+
+// signup message
+const signupMessage = document.getElementById("signupError");
+if (signupMessage && error === "email_exists") {
+  signupMessage.textContent = "Email already registered. ";
+  signupMessage.style.display = "block";
 }

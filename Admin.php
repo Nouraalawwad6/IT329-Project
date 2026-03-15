@@ -1,3 +1,4 @@
+<?php include("admin_auth.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,8 +23,9 @@
         <span class="admin-name">Noor</span>
       </h2>
 
-      <a href="Homepage.html" class="admin-logout">Log-out</a>
-    
+<a href="logout.php" class="logout">Log-out</a>
+
+
   </div>
 </header>
 
