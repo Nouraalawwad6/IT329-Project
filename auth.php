@@ -1,8 +1,12 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
-if (!isset($_SESSION["userID"]) || !isset($_SESSION["userType"])) {
-    header("Location: login.html");
+if(!isset($_SESSION['userID']) || $_SESSION['userType'] != 'user'){
+    header("Location: login.php?error=YouMustLoginFirst");
     exit();
 }
 ?>
+
+

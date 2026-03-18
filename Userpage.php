@@ -1,166 +1,310 @@
-<?php include("user_auth.php"); ?>
+<?php
+// Include authentication file (checks login + user type)
+include("auth.php"); 
+
+// Include database connection
+include("db.php");
+
+// Get logged-in user ID from session
+$user_id = $_SESSION['userID']; 
+
+// Get user information from database
+$user_sql = "SELECT * FROM User WHERE id='$user_id'";
+$user_result = mysqli_query($conn, $user_sql);
+$user = mysqli_fetch_assoc($user_result);
+
+// If user not found, stop execution
+if(!$user){
+    die("User not found.");
+}
+
+/* ================= COUNT USER RECIPES ================= */
+// Count how many recipes this user has created
+$count_sql = "SELECT COUNT(*) AS totalRecipes FROM Recipe WHERE userID='$user_id'";
+$count_result = mysqli_query($conn,$count_sql);
+$count = mysqli_fetch_assoc($count_result);
+
+/* ================= TOTAL LIKES ================= */
+// Count total likes for all recipes created by this user
+$likes_sql = "SELECT COUNT(*) AS totalLikes
+FROM Likes
+JOIN Recipe ON Likes.recipeID = Recipe.id
+WHERE Recipe.userID='$user_id'";
+$likes_result = mysqli_query($conn,$likes_sql);
+$likes = mysqli_fetch_assoc($likes_result);
+
+/* ================= GET ALL CATEGORIES ================= */
+// Retrieve all recipe categories for filter dropdown
+$cat_sql = "SELECT * FROM RecipeCategory";
+$cat_result = mysqli_query($conn,$cat_sql);
+
+/* ================= GET RECIPES (GET / POST) ================= */
+
+// If user selected a category (POST request)
+if($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST['category'])){
+
+    // Prevent SQL injection
+    $cat = mysqli_real_escape_string($conn, $_POST['category']);
+
+    // Get recipes filtered by selected category
+    $recipes_sql = "SELECT Recipe.*, User.firstName, User.photoFileName AS userPhoto,
+    RecipeCategory.categoryName,
+    COUNT(Likes.recipeID) AS likes
+
+    FROM Recipe
+    JOIN User ON Recipe.userID = User.id
+    JOIN RecipeCategory ON Recipe.categoryID = RecipeCategory.id
+    LEFT JOIN Likes ON Recipe.id = Likes.recipeID
+
+    WHERE RecipeCategory.categoryName='$cat'
+    GROUP BY Recipe.id";
+
+}else{
+
+    // If no filter → get all recipes
+    $recipes_sql = "SELECT Recipe.*, User.firstName, User.photoFileName AS userPhoto,
+    RecipeCategory.categoryName,
+    COUNT(Likes.recipeID) AS likes
+
+    FROM Recipe
+    JOIN User ON Recipe.userID = User.id
+    JOIN RecipeCategory ON Recipe.categoryID = RecipeCategory.id
+    LEFT JOIN Likes ON Recipe.id = Likes.recipeID
+
+    GROUP BY Recipe.id";
+}
+
+// Execute recipes query
+$recipes_result = mysqli_query($conn,$recipes_sql);
+
+/* ================= FAVOURITE RECIPES ================= */
+// Get user's favourite recipes
+$fav_sql = "SELECT Recipe.*
+FROM Favourites
+JOIN Recipe ON Favourites.recipeID = Recipe.id
+WHERE Favourites.userID='$user_id'";
+
+$fav_result = mysqli_query($conn,$fav_sql);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Winter Flavors | User Page</title>
-
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Winter Flavors | User Page</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+
 <header class="wf-header">
   <div class="wf-header-inner">
 
+    <!-- Logo -->
     <div class="logo-box">
-      <img src="images/logo.png" alt="Logo" id="Logo">
+      <img src="images/logo.png" id="Logo">
     </div>
 
+    <!-- Welcome message -->
     <div class="header-center">
       <h2 class="welcome-text">
-        Welcome <span class="username">Sara</span>
+        Welcome <span class="username"><?php echo $user['firstName']; ?></span>
       </h2>
     </div>
 
-<a href="logout.php" class="logout">Log-out</a>
+    <!-- Logout button -->
+    <a href="logout.php" class="logout">Log-out</a>
+
   </div>
 </header>
 
-
-
 <main class="user-page">
 
+<!-- ================= USER INFORMATION ================= -->
+<section class="box info-box">
+  <div>
+    <h3>My Information</h3>
+
+    <!-- Display full name -->
+    <p><strong>Name:</strong>
+      <?php echo $user['firstName']." ".$user['lastName']; ?>
+    </p>
+
+    <!-- Display email -->
+    <p><strong>Email:</strong>
+      <?php echo $user['emailAddress']; ?>
+    </p>
+  </div>
+
+<?php
+// Choose profile image (default if none)
+$photo = (!empty($user['photoFileName']) && $user['photoFileName'] != 'profile.png') 
+          ? $user['photoFileName'] 
+          : 'comments.png';
+?>
+
+<!-- Display profile image -->
+<img id="profileImage" src="images/<?php echo $photo; ?>" class="profile-photo" alt="User Photo">
+</section>
 
 
+<!-- ================= MY RECIPES SUMMARY ================= -->
+<section class="box">
+  <!-- Link to My Recipes page -->
+  <h3><a href="MyRecipes.php" class="link">My Recipes</a></h3>
 
-    <!-- My Information -->
-    <section class="box info-box">
-      <div>
-        <h3>My Information</h3>
-        <p><strong>Name:</strong> Sara Ahmed</p>
-        <p><strong>Email:</strong> sara@email.com</p>
-      </div>
-      <img id="profileImage" src="./images/profile.png" alt="Profile Image">
+  <!-- Total recipes -->
+  <p>Total Recipes: <?php echo $count['totalRecipes']; ?></p>
 
-    </section>
+  <!-- Total likes -->
+  <p>Total Likes: <?php echo $likes['totalLikes']; ?></p>
+</section>
 
-    <!-- My Recipes -->
-    <section class="box">
-      <h3><a href="MyRecipes.html" class="link">My Recipes</a></h3>
-      <p>Total Recipes: 3</p>
-      <p>Total Likes: 102</p>
-    </section>
 
-    <!-- All Available Recipes -->
-    <section class="box">
-      <h3>All Available Recipes</h3>
+<!-- ================= ALL RECIPES ================= -->
+<section class="box">
+  <h3>All Available Recipes</h3>
 
-    <div class="filter">
-  <select id="categoryFilter">
-    <option value="all">All Categories</option>
-    <option value="Hot Drinks">Hot Drinks</option>
-    <option value="Winter Sweets">Winter Sweets</option>
-    <option value="Soups & Warm Meals">Soups & Warm Meals</option>
+<!-- Filter form -->
+<form method="POST" class="filter">
+  <select name="category">
+    <option value="">All Categories</option>
+
+    <?php 
+    // Loop through categories
+    mysqli_data_seek($cat_result, 0); 
+    while($c = mysqli_fetch_assoc($cat_result)){ 
+        $selected = (isset($_POST['category']) && $_POST['category'] == $c['categoryName']) ? "selected" : "";
+    ?>
+      <option value="<?php echo $c['categoryName']; ?>" <?php echo $selected; ?>>
+        <?php echo $c['categoryName']; ?>
+      </option>
+    <?php } ?>
   </select>
-  <button class="filter-btn" onclick="filterRecipes()">Filter</button>
-</div>
+
+  <button class="filter-btn">Filter</button>
+</form>
+
+<!-- If no recipes found -->
+<?php if(mysqli_num_rows($recipes_result) == 0){ ?>
+
+<p>No recipes found</p>
+
+<?php } else { ?>
+
+<!-- Recipes table -->
+<table id="recipesTable">
+<thead>
+<tr>
+<th>Recipe Name</th>
+<th>Recipe Photo</th>
+<th>Recipe Creator</th>
+<th>Likes</th>
+<th>Category</th>
+</tr>
+</thead>
+
+<tbody>
+
+<?php while($row = mysqli_fetch_assoc($recipes_result)){ ?>
+
+<tr>
+
+<!-- Recipe name with link to view page -->
+<td>
+<a href="viewRecipe.php?id=<?php echo $row['id']; ?>" class="link">
+<?php echo $row['name']; ?>
+</a>
+</td>
+
+<!-- Recipe image -->
+<td>
+<img src="images/<?php echo $row['photoFileName']; ?>" class="recipe-photo">
+</td>
+
+<!-- Creator name + photo -->
+<td>
+<?php echo $row['firstName']; ?><br>
+
+<?php
+$profile = !empty($row['userPhoto']) ? $row['userPhoto'] : "comments.png";
+?>
+
+<img src="images/<?php echo $profile; ?>" class="profile-photo">
+</td>
+
+<!-- Likes count -->
+<td><?php echo $row['likes']; ?></td>
+
+<!-- Category -->
+<td><?php echo $row['categoryName']; ?></td>
+
+</tr>
+
+<?php } ?>
+
+</tbody>
+</table>
+
+<?php } ?>
+
+</section>
 
 
-      <table id="recipesTable">
+<!-- ================= FAVOURITES ================= -->
+<section class="box">
+<h3>My Favourite Recipes ♥</h3>
 
-        <thead>
-          <tr>
-            <th>Recipe Name</th>
-            <th>Recipe Photo</th>
-            <th>Recipe Creator</th>
-            <th>Likes</th>
-            <th>Category</th>
-          </tr>
-        </thead>
+<!-- If no favourites -->
+<?php if(mysqli_num_rows($fav_result)==0){ ?>
 
-        <tbody>
-          <tr>
-            <td><a href="ViewRecipe.html" class="link">Healthy Hot Chocolate</a></td>
-            <td><img src="./images/hot chocolate.png" alt="Healthy Hot Chocolate" class="recipe-photo"></td>
-            <td>Sara<br><img src="./images/profile.png" alt="Sara's Profile" class="profile-photo"></td>
-            <td>45</td>
-            <td>Hot Drinks</td>
-          </tr>
+<p>No favourite recipes</p>
 
-          <tr>
-            <td>Vanilla Latte</td>
-            <td><img src="./images/Vanilla Latte.png" alt="Vanilla Latte" class="recipe-photo"></td>
-            <td>Omar<br><img src="./images/comments.png" alt="Omar's Profile" class="profile-photo"></td>
-            <td>30</td>
-            <td>Hot Drinks</td>
-          </tr>
-  <tr>
-            <td>Chicken Vegetable Soup</td>
-            <td><img src="./images/Chicken Vegetable Soup.png" alt="Chicken Vegetable Soup" class="recipe-photo"></td>
-            <td>Sara<br><img src="./images/profile.png" alt="Sara's Profile" class="profile-photo"></td>
-            <td>30</td>
-            <td>Soups & Warm Meals</td>
-          </tr>
+<?php } else { ?>
 
-          <tr>
-            <td>Gingerbread Cookies</a></td>
-            <td><img src="./images/Gingerbread Cookies.png" alt="Gingerbread Cookies" class="recipe-photo"></td>
-            <td>Noor<br><img src="./images/comments.png" alt="Noor's Profile" class="profile-photo"></td>
-            <td>38</td>
-            <td>Winter Sweets</td>
-          </tr>
+<table>
 
-          <tr>
-            <td>Cinnamon Apple Pie</td>
-            <td><img src="./images/Cinnamon Apple Pie.png" alt="Cinnamon Apple Pie" class="recipe-photo"></td>
-            <td>Sara<br><img src="./images/profile.png" alt="Sara's Profile" class="profile-photo"></td>
-            <td>27</td>
-            <td>Winter Sweets</td>
-          </tr>
+<tr>
+<th>Recipe Name</th>
+<th>Recipe Photo</th>
+<th>Action</th>
+</tr>
 
-          <tr>
-            <td>Chicken Cream Soup</td>
-            <td><img src="./images/Chicken Cream Soup.png" alt="Chicken Cream Soup" class="recipe-photo"></td>
-            <td>Ali<br><img src="./images/comments.png" alt="Ali's Profile" class="profile-photo"></td>
-            <td>22</td>
-            <td>Soups & Warm Meals</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+<?php while($row = mysqli_fetch_assoc($fav_result)){ ?>
 
-    <!-- Favourite Recipes -->
-    <section class="box">
-      <h3>My Favourite Recipes ♥</h3>
+<tr>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Recipe Name</th>
-            <th>Recipe Photo</th>
-            <th>Action</th>
-          </tr>
-        </thead>
+<!-- Recipe link -->
+<td>
+<a href="viewRecipe.php?id=<?php echo $row['id']; ?>" class="link">
+<?php echo $row['name']; ?>
+</a>
+</td>
 
-        <tbody>
-          <tr>
-            <td><a href="ViewRecipe.html" class="link">Healthy Hot Chocolate</a></td>
-            <td><img src="./images/hot chocolate.png" alt="Healthy Hot Chocolate" class="recipe-photo"></td>
-            <td><a href="Userpage.html" class="link">Remove</a></td>
-          </tr>
+<!-- Recipe image -->
+<td>
+<img src="images/<?php echo $row['photoFileName']; ?>" class="recipe-photo">
+</td>
 
-          <tr>
-            <td>Gingerbread Cookies</a></td>
-            <td><img src="./images/Gingerbread Cookies.png" alt="Gingerbread Cookies" class="recipe-photo"></td>
-            <td><a href="Userpage.html" class="link">Remove</a></td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+<!-- Remove from favourites -->
+<td>
+<a href="removeFavourite.php?id=<?php echo $row['id']; ?>" class="link">
+Remove
+</a>
+</td>
 
-  </main>
-  <script src="script.js"></script>
+</tr>
+
+<?php } ?>
+
+</table>
+
+<?php } ?>
+
+</section>
+
+</main>
 
 </body>
 </html>

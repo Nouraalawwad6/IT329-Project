@@ -1,58 +1,6 @@
-/* Filter recipes based on selected category */
-function filterRecipes() {
 
-  // Get selected category from dropdown
-  const selected = document.getElementById("categoryFilter").value;
 
-  // Get all recipe rows from the table
-  const rows = document.querySelectorAll("#recipesTable tbody tr");
 
-  // Loop through each row
-  rows.forEach(row => {
-
-    // Get category text from the 5th column
-    const category = row.cells[4].innerText.trim().toLowerCase();
-
-    // Show row if category matches, otherwise hide it
-    row.style.display =
-      selected === "all" || category === selected.toLowerCase()
-        ? ""
-        : "none";
-  });
-}
-
-// =========================
-// MY RECIPES 
-// =========================
-const tbody = document.querySelector("#myRecipesTable tbody");
-
-if (tbody) {
-  function createRecipeCell(recipe) {
-    const td = document.createElement("td");
-
-    const wrap = document.createElement("div");
-    wrap.className = "recipe-cell";
-
-    const img = document.createElement("img");
-    img.className = "thumb";
-    img.alt = recipe.name;
-    img.src = recipe.photo || DEFAULT_RECIPE_PHOTO;
-    img.onerror = () => { img.src = DEFAULT_RECIPE_PHOTO; };
-
-    const info = document.createElement("div");
-
-    const a = document.createElement("a");
-    a.className = "link";
-    a.href = `ViewRecipe.html?id=${recipe.id}`;
-    a.textContent = recipe.name;
-
-    info.appendChild(a);
-    wrap.appendChild(img);
-    wrap.appendChild(info);
-    td.appendChild(wrap);
-
-    return td;
-  }
 
   function createIngredientsCell(ingredients) {
     const td = document.createElement("td");
