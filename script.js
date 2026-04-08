@@ -101,8 +101,9 @@
   renderTable();
 }
 
+
 // ==========================
-// ADD RECIPE 
+// ADD RECIPE
 // ==========================
 const addIngredientBtn = document.getElementById("addIngredientBtn");
 const ingredientsContainer = document.getElementById("ingredientsContainer");
@@ -110,13 +111,13 @@ const ingredientsContainer = document.getElementById("ingredientsContainer");
 if (addIngredientBtn && ingredientsContainer) {
   addIngredientBtn.addEventListener("click", () => {
     const div = document.createElement("div");
-
     div.className = "ar-row";
 
     div.innerHTML = `
-      <input type="text" placeholder="Ingredient name" required>
-      <input type="text" placeholder="Quantity" required>
+      <input type="text" name="ingredientName[]" placeholder="Ingredient name" required>
+      <input type="text" name="ingredientQuantity[]" placeholder="Quantity" required>
     `;
+
     ingredientsContainer.appendChild(div);
   });
 }
@@ -131,18 +132,11 @@ if (addInstructionBtn && instructionsContainer) {
 
     const input = document.createElement("input");
     input.type = "text";
+    input.name = "instructions[]";
     input.placeholder = `Step ${stepCount}`;
     input.required = true;
 
     instructionsContainer.appendChild(input);
-  });
-}
-
-const addRecipeForm = document.getElementById("addRecipeForm");
-if (addRecipeForm) {
-  addRecipeForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    window.location.href = "MyRecipes.html";
   });
 }
 // ==========================
