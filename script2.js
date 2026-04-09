@@ -1,47 +1,41 @@
 /*----------------------Edit recipe--------------------*/
-// ===== Ingredients =====
-const erAddIngBtn = document.getElementById("editAddIngredientBtn");
-const erIngContainer = document.getElementById("editIngredientsContainer");
+document.addEventListener("DOMContentLoaded", function () {
+  const ingredientBtn = document.getElementById("editAddIngredientBtn");
+  const ingredientsContainer = document.getElementById("editIngredientsContainer");
 
-let erIngIndex = 1;
+  const instructionBtn = document.getElementById("editAddInstructionBtn");
+  const instructionsContainer = document.getElementById("editInstructionsContainer");
 
-erAddIngBtn.addEventListener("click", () => {
-  erIngIndex++;
+  // Add new ingredient row
+  if (ingredientBtn && ingredientsContainer) {
+    ingredientBtn.addEventListener("click", function () {
+      const row = document.createElement("div");
+      row.className = "edit-row edit-ingredient-row";
 
-  const erIngRow = document.createElement("div");
-  erIngRow.className = "edit-row edit-ingredient-row";
+      row.innerHTML = `
+        <input type="text" name="ingredientNames[]" placeholder="Ingredient name" required>
+        <input type="text" name="ingredientQuantities[]" placeholder="Quantity" required>
+      `;
 
-  erIngRow.innerHTML = `
-    <input type="text" placeholder="Ingredient name" required>
-    <input type="text" placeholder="Quantity" required>
-  `;
+      ingredientsContainer.appendChild(row);
+    });
+  }
 
-  erIngContainer.appendChild(erIngRow);
-});
+  // Add new instruction row
+  if (instructionBtn && instructionsContainer) {
+    instructionBtn.addEventListener("click", function () {
+      const currentSteps = instructionsContainer.querySelectorAll('input[name="steps[]"]').length;
+      const nextStepNumber = currentSteps + 1;
 
+      const row = document.createElement("div");
+      row.className = "edit-row";
 
-// ===== Instructions =====
-const erAddStepBtn = document.getElementById("editAddInstructionBtn");
-const erStepsContainer = document.getElementById("editInstructionsContainer");
+      row.innerHTML = `
+        <input type="text" name="steps[]" placeholder="Step ${nextStepNumber}" required>
+        <input type="hidden" name="stepOrders[]" value="${nextStepNumber}">
+      `;
 
-let erStepIndex = 1;
-
-erAddStepBtn.addEventListener("click", () => {
-  erStepIndex++;
-
-  const erStepInput = document.createElement("input");
-  erStepInput.type = "text";
-  erStepInput.placeholder = `Step ${erStepIndex}`;
-  erStepInput.required = true;
-
-  erStepsContainer.appendChild(erStepInput);
-});
-
-
-// ===== Form Submit =====
-const erForm = document.getElementById("editRecipeForm");
-
-erForm.addEventListener("submit", function (e) {
-  e.preventDefault();
-  window.location.href = "MyRecipes.html";
+      instructionsContainer.appendChild(row);
+    });
+  }
 });
