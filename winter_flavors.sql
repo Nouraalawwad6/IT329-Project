@@ -32,7 +32,7 @@ CREATE TABLE `BlockedUser` (
   `firstName` varchar(50) NOT NULL,
   `lastName` varchar(50) NOT NULL,
   `emailAddress` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -46,7 +46,7 @@ CREATE TABLE `Comment` (
   `userID` int NOT NULL,
   `comment` text NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -57,7 +57,7 @@ CREATE TABLE `Comment` (
 CREATE TABLE `Favourites` (
   `userID` int NOT NULL,
   `recipeID` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -70,7 +70,7 @@ CREATE TABLE `Ingredients` (
   `recipeID` int NOT NULL,
   `ingredientName` varchar(100) NOT NULL,
   `ingredientQuantity` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -83,7 +83,7 @@ CREATE TABLE `Instructions` (
   `recipeID` int NOT NULL,
   `step` text NOT NULL,
   `stepOrder` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -94,7 +94,7 @@ CREATE TABLE `Instructions` (
 CREATE TABLE `Likes` (
   `userID` int NOT NULL,
   `recipeID` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -110,7 +110,7 @@ CREATE TABLE `Recipe` (
   `description` text NOT NULL,
   `photoFileName` varchar(255) NOT NULL,
   `videoFilePath` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `Recipe`
@@ -130,7 +130,7 @@ INSERT INTO `Recipe` (`id`, `userID`, `categoryID`, `name`, `description`, `phot
 CREATE TABLE `RecipeCategory` (
   `id` int NOT NULL,
   `categoryName` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `RecipeCategory`
@@ -151,7 +151,7 @@ CREATE TABLE `Report` (
   `id` int NOT NULL,
   `userID` int NOT NULL,
   `recipeID` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -167,7 +167,7 @@ CREATE TABLE `User` (
   `emailAddress` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   `photoFileName` varchar(255) DEFAULT 'default.png'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `User`

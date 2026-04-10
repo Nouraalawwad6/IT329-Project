@@ -1,4 +1,29 @@
-<?php include("admin_auth.php"); ?>
+<?php
+include("admin_auth.php");
+include("db.php");
+
+$adminID = $_SESSION['userID'];
+
+$admin = mysqli_fetch_assoc(mysqli_query($conn,
+"SELECT * FROM User WHERE id='$adminID'"
+));
+
+$reports = mysqli_query($conn,
+"SELECT Report.id AS reportID,
+Recipe.id AS recipeID,
+Recipe.name,
+User.firstName,
+User.lastName,
+User.photoFileName
+FROM Report
+JOIN Recipe ON Report.recipeID = Recipe.id
+JOIN User ON Recipe.userID = User.id"
+);
+
+$blocked = mysqli_query($conn,
+"SELECT * FROM BlockedUser"
+);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,8 +63,8 @@
     <!-- Admin Info -->
     <section class="admin-box">
       <h3>My Information</h3>
-      <p><strong>Name:</strong> Noor Fahad</p>
-      <p><strong>Email:</strong> Noor@winterflavors.com</p>
+      <p><strong>Name:</strong> <?php echo $admin['firstName']." ".$admin['lastName']; ?></p>
+      <p><strong>Email:</strong> <?php echo $admin['emailAddress']; ?></p>
     </section>
 
     <!-- Reports -->
@@ -56,110 +81,38 @@
         </thead>
 
         <tbody>
+            <?php while($r = mysqli_fetch_assoc($reports)){ ?>
           <tr>
-            <td>
-              <a href="viewRecipeAdmin.html" class="admin-link">
-               Healthy Hot Chocolate
+            <td>    
+              <a class="admin-link" href="viewRecipe.php?id=<?php echo $r['recipeID']; ?>">
               </a>
             </td>
 
             <td>
-              Sara<br>
-             <img src="./images/profile.png" alt="Sara's Profile" class="admin-img">
+             <?php echo $r['firstName']." ".$r['lastName']; ?><br>
+
+            <?php
+            $img = !empty($r['photoFileName']) ? $r['photoFileName'] : "profile.png";
+            ?>
+            
+             <img src="images/<?php echo $img; ?>" width="50" height="50" class="admin-img">
             </td>
 
             <td>
-              <form action="admin.html">
-                <label>
-                  <input type="radio" name="r1" required>
-                  Block User
-                </label><br>
-                <label>
-                  <input type="radio" name="r1">
-                  Dismiss
-                </label><br><br>
+              <form method="POST" action="admin_action.php">
+                  <input type="hidden" name="reportID" value="<?php echo $r['reportID']; ?>">
+                
+                  <input type="radio" name="action" value="block" required>
+                  Block User<br>
+                
+                  <input type="radio" name="action" value="dismiss">
+                  Dismiss <br>
+                  
                 <button class="admin-btn">Submit</button>
               </form>
             </td>
           </tr>
-          <tr>
-            <td>
-              
-              Vanilla Latte
-              </a>
-            </td>
-
-            <td>
-              Omar<br>
-              <img src="./images/comments.png" alt="Omar's Profile" class="admin-img">
-            </td>
-
-            <td>
-              <form action="admin.html">
-                <label>
-                  <input type="radio" name="r1" required>
-                  Block User
-                </label><br>
-                <label>
-                  <input type="radio" name="r1">
-                  Dismiss
-                </label><br><br>
-                <button class="admin-btn">Submit</button>
-              </form>
-            </td>
-          </tr>
-          <tr>
-            <td>
-                Chicken Cream Soup
-              </a>
-            </td>
-
-            <td>
-              Ali<br>
-              <img src="./images/comments.png" alt="Ali's Profile" class="admin-img">
-            </td>
-
-            <td>
-              <form action="admin.html">
-                <label>
-                  <input type="radio" name="r1" required>
-                  Block User
-                </label><br>
-                <label>
-                  <input type="radio" name="r1">
-                  Dismiss
-                </label><br><br>
-                <button class="admin-btn">Submit</button>
-              </form>
-            </td>
-          </tr>
-          <tr>
-            <td>
-             
-                Gingerbread Cookies
-              </a>
-            </td>
-
-            <td>
-              Noor<br>
-              <img src="./images/comments.png" alt="Noor's Profile" class="admin-img">
-            </td>
-
-            <td>
-              <form action="admin.html">
-                <label>
-                  <input type="radio" name="r1" required>
-                  Block User
-                </label><br>
-                <label>
-                  <input type="radio" name="r1">
-                  Dismiss
-                </label><br><br>
-                <button class="admin-btn">Submit</button>
-              </form>
-            </td>
-          </tr>
-          
+          <?php } ?>
         </tbody>
       </table>
     </section>
@@ -177,20 +130,14 @@
         </thead>
 
         <tbody>
+           <?php while($b = mysqli_fetch_assoc($blocked)){ ?>
+            
           <tr>
-            <td>Omar Khalid</td>
-            <td>omar@gmail.com</td>
+            <td><?php echo $b['firstName']." ".$b['lastName']; ?></td>
+            <td><?php echo $b['emailAddress']; ?></td>
           </tr>
-
-          <tr>
-            <td>Shadin Bader</td>
-            <td>shadin@gmail.com</td>
-          </tr>
-
-          <tr>
-            <td>Faisal Mohammed</td>
-            <td>faisal@gmail.com</td>
-          </tr>
+          <?php } ?>
+          
         </tbody>
       </table>
     </section>

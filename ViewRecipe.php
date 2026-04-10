@@ -54,6 +54,19 @@ $comStmt = $conn->prepare("
 $comStmt->bind_param("i", $recipeID);
 $comStmt->execute();
 $comments = $comStmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+// --- 10d buttens
+    // check if user liked recipe
+    $likeCheck = mysqli_query($conn, "SELECT * FROM Likes WHERE userID='$_SESSION[userID]' AND recipeID='$recipeID'");
+    $hasLiked = mysqli_num_rows($likeCheck) > 0;
+
+    // check favourite
+    $favCheck = mysqli_query($conn, "SELECT * FROM Favourites WHERE userID='$_SESSION[userID]' AND recipeID='$recipeID'");
+    $hasFav = mysqli_num_rows($favCheck) > 0;
+
+    // check report
+    $repCheck = mysqli_query($conn, "SELECT * FROM Report WHERE userID='$_SESSION[userID]' AND recipeID='$recipeID'");
+    $hasRep = mysqli_num_rows($repCheck) > 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -93,18 +106,34 @@ $comments = $comStmt->get_result()->fetch_all(MYSQLI_ASSOC);
     <header class="vr-top">
       <div></div>
       <div class="vr-actions">
-        <button class="vr-btn">
-          <i class="fa-regular fa-heart"></i>
-          Favourite
-        </button>
-        <button class="vr-btn">
-          <i class="fa-regular fa-thumbs-up"></i>
-          Like
-        </button>
-        <button class="vr-btn vr-btn-outline">
-          <i class="fa-regular fa-flag"></i>
-          Report
-        </button>
+          
+        <!--Favourite button -->  
+      <?php
+      if($hasFav){
+      ?>
+      <button class="vr-btn" disabled>Favourite</button>
+      <?php } else { ?>
+      <a class="vr-btn" href="favourite.php?id=<?php echo $recipeID; ?>"><i class="fa-regular fa-heart"></i>Favourite</a>
+      <?php } ?>
+        
+       <!--like button -->
+      <?php
+      if($hasLiked){
+      ?>
+      <button class="vr-btn" disabled>Like</button>
+      <?php } else { ?>
+      <a class="vr-btn" href="like.php?id=<?php echo $recipeID; ?>"><i class="fa-regular fa-heart"></i>Like</a>
+      <?php } ?>
+      
+       <!--Report button --> 
+      <?php
+      if($hasRep){
+      ?>
+      <button class="vr-btn" disabled>Report</button>
+      <?php } else { ?>
+      <a class="vr-btn vr-btn-outline" href="report.php?id=<?php echo $recipeID; ?>"><i class="fa-regular fa-flag"></i>Report</a>
+      <?php } ?>
+       
       </div>
     </header>
 
@@ -208,9 +237,26 @@ $comments = $comStmt->get_result()->fetch_all(MYSQLI_ASSOC);
       <?php else: ?>
         <p class="muted">No comments yet. Be the first to comment!</p>
       <?php endif; ?>
+        
+    <?php
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-      <textarea class="vr-input" placeholder="Add a comment..."></textarea>
+        $comment = $_POST["comment"];
+
+        mysqli_query($conn,
+        "INSERT INTO Comment (recipeID, userID, comment, date)
+        VALUES ('$recipeID', '$_SESSION[userID]', '$comment', NOW())"
+        );
+
+        header("Location: viewRecipe.php?id=$recipeID");
+        exit();
+    }
+    ?>
+    <form method="POST">
+      <textarea class="vr-input" name="comment" placeholder="Add a comment..."></textarea>
       <button class="vr-post">Post Comment</button>
+    </form>
+    
     </section>
 
   </article>
