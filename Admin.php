@@ -1,13 +1,16 @@
 <?php
-include("admin_auth.php");
+include("admin_auth.php");// Ensure only admins can access this page
 include("db.php");
 
 $adminID = $_SESSION['userID'];
 
+// Fetch admin's personal information
 $admin = mysqli_fetch_assoc(mysqli_query($conn,
 "SELECT * FROM User WHERE id='$adminID'"
 ));
 
+// Retrieve pending reports by joining Report, Recipe, and User tables
+// [ This shows which recipe was reported and who created it ]
 $reports = mysqli_query($conn,
 "SELECT Report.id AS reportID,
 Recipe.id AS recipeID,
@@ -20,6 +23,7 @@ JOIN Recipe ON Report.recipeID = Recipe.id
 JOIN User ON Recipe.userID = User.id"
 );
 
+// Fetch the list of all users who have been blocked
 $blocked = mysqli_query($conn,
 "SELECT * FROM BlockedUser"
 );
@@ -85,6 +89,7 @@ $blocked = mysqli_query($conn,
           <tr>
             <td>    
               <a class="admin-link" href="viewRecipe.php?id=<?php echo $r['recipeID']; ?>">
+             <?php echo $r['name']; ?>
               </a>
             </td>
 
@@ -92,6 +97,7 @@ $blocked = mysqli_query($conn,
              <?php echo $r['firstName']." ".$r['lastName']; ?><br>
 
             <?php
+            //Check if there is an image or usse defult image
             $img = !empty($r['photoFileName']) ? $r['photoFileName'] : "profile.png";
             ?>
             

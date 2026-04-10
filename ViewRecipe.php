@@ -55,16 +55,16 @@ $comStmt->bind_param("i", $recipeID);
 $comStmt->execute();
 $comments = $comStmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-// --- 10d buttens
-    // check if user liked recipe
+// --- Task 10-d Check if user already interacted with the recipe
+    // check if logged-in user has already liked this recipe
     $likeCheck = mysqli_query($conn, "SELECT * FROM Likes WHERE userID='$_SESSION[userID]' AND recipeID='$recipeID'");
     $hasLiked = mysqli_num_rows($likeCheck) > 0;
 
-    // check favourite
+    // check it's already in the user's favorites
     $favCheck = mysqli_query($conn, "SELECT * FROM Favourites WHERE userID='$_SESSION[userID]' AND recipeID='$recipeID'");
     $hasFav = mysqli_num_rows($favCheck) > 0;
 
-    // check report
+    // check if the user has already reported this recipe
     $repCheck = mysqli_query($conn, "SELECT * FROM Report WHERE userID='$_SESSION[userID]' AND recipeID='$recipeID'");
     $hasRep = mysqli_num_rows($repCheck) > 0;
 ?>
@@ -239,15 +239,18 @@ $comments = $comStmt->get_result()->fetch_all(MYSQLI_ASSOC);
       <?php endif; ?>
         
     <?php
+    // --- Task 10-c: Handle new comment submission
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-
+        // Get comment text from form
         $comment = $_POST["comment"];
 
+        // Insert comment into database with current userID[from SESSION] and recipeID[from Query String URL in 10a]
         mysqli_query($conn,
         "INSERT INTO Comment (recipeID, userID, comment, date)
         VALUES ('$recipeID', '$_SESSION[userID]', '$comment', NOW())"
         );
-
+        
+        // Redirect to refresh the page and display the new comment
         header("Location: viewRecipe.php?id=$recipeID");
         exit();
     }
