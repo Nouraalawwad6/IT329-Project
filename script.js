@@ -1,8 +1,9 @@
+ 
+ // =========================
+const tbody = document.querySelector("#myRecipesTable tbody");
 
-
-
-
-  function createIngredientsCell(ingredients) {
+if (tbody) {
+ function createIngredientsCell(ingredients) {
     const td = document.createElement("td");
     const ul = document.createElement("ul");
     ul.className = "mini-list";
