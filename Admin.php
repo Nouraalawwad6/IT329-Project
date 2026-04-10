@@ -49,7 +49,7 @@ $blocked = mysqli_query($conn,
      
       <h2 class="admin-welcome">
         Welcome To the Admin Panel 
-        <span class="admin-name">Noor</span>
+        <span class="admin-name"> <?php echo $admin['firstName']." ".$admin['lastName']; ?></span>
       </h2>
 
 <a href="logout.php" class="logout">Log-out</a>
