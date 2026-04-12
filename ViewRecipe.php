@@ -47,13 +47,35 @@ $instructions = $insStmt->get_result()->fetch_all(MYSQLI_ASSOC);
 $comStmt = $conn->prepare("
     SELECT c.comment, c.date, u.firstName, u.photoFileName AS userPhoto
     FROM Comment c
-    JOIN User u ON c.userID = u.id
+    LEFT JOIN User u ON c.userID = u.id
     WHERE c.recipeID = ?
     ORDER BY c.date DESC
 ");
 $comStmt->bind_param("i", $recipeID);
 $comStmt->execute();
 $comments = $comStmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+// --- Task 10-c: Handle new comment submission
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+    // Get comment text from form
+        $comment = trim($_POST["comment"]);
+        
+    // Check if comment is empty then do not allow
+        if(trim($comment) === ""){
+        header("Location: viewRecipe.php?id=$recipeID");
+        exit();
+    }
+    
+    // Insert comment into database with current userID[from SESSION] and recipeID[from Query String URL in 10a]
+        mysqli_query($conn,
+        "INSERT INTO Comment (recipeID, userID, comment, date)
+        VALUES ('$recipeID', '$_SESSION[userID]', '$comment', NOW())"
+        );
+        
+    // Redirect to refresh the page and display the new comment
+        header("Location: viewRecipe.php?id=$recipeID");
+        exit();
+    }
 
 // --- Task 10-d Check if user already interacted with the recipe
     // check if logged-in user has already liked this recipe
@@ -237,24 +259,7 @@ $comments = $comStmt->get_result()->fetch_all(MYSQLI_ASSOC);
       <?php else: ?>
         <p class="muted">No comments yet. Be the first to comment!</p>
       <?php endif; ?>
-        
-    <?php
-    // --- Task 10-c: Handle new comment submission
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
-        // Get comment text from form
-        $comment = $_POST["comment"];
-
-        // Insert comment into database with current userID[from SESSION] and recipeID[from Query String URL in 10a]
-        mysqli_query($conn,
-        "INSERT INTO Comment (recipeID, userID, comment, date)
-        VALUES ('$recipeID', '$_SESSION[userID]', '$comment', NOW())"
-        );
-        
-        // Redirect to refresh the page and display the new comment
-        header("Location: viewRecipe.php?id=$recipeID");
-        exit();
-    }
-    ?>
+       
     <form method="POST">
       <textarea class="vr-input" name="comment" placeholder="Add a comment..."></textarea>
       <button class="vr-post">Post Comment</button>

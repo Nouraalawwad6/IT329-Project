@@ -25,10 +25,18 @@ if($action == "block"){
 // 1. Delete the recipe (associated data will be deleted via DB CASCADE)
     mysqli_query($conn, "DELETE FROM Recipe WHERE id='$recipeID'");
     
-    // 2. Transfer user data to the BlockedUser table
-    mysqli_query($conn, "INSERT INTO BlockedUser SELECT * FROM User WHERE id='$userID'");
-    
-    // 3. Permanently remove the user from the main User table
+// 2. Transfer user data to the BlockedUser table
+    // get user info first
+    $u = mysqli_fetch_assoc(mysqli_query($conn,
+    "SELECT firstName, lastName, emailAddress FROM User WHERE id='$userID'"
+    ));
+
+    // insert manually
+    mysqli_query($conn,
+    "INSERT INTO BlockedUser (firstName, lastName, emailAddress)
+    VALUES ('{$u['firstName']}', '{$u['lastName']}', '{$u['emailAddress']}')"
+    );    
+// 3. Permanently remove the user from the main User table
     mysqli_query($conn, "DELETE FROM User WHERE id='$userID'");
 }
 
