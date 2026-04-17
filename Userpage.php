@@ -114,10 +114,8 @@ $photo = (!empty($user['photoFileName']) && $user['photoFileName'] != 'profile.p
 
 <!-- Display profile image -->
 <img id="profileImage" src="images/<?php echo $photo; ?>" class="profile-photo" alt="User Photo">
-</section>
 
-<!-- Display profile image -->
-<img id="profileImage" src="images/<?php echo $photo; ?>" class="profile-photo" alt="User Photo">
+
 </section>
 
 <!-- ===== SUMMARY ===== -->
@@ -134,13 +132,17 @@ $photo = (!empty($user['photoFileName']) && $user['photoFileName'] != 'profile.p
   <!-- FILTER -->
   <form method="POST" class="filter">
     <select name="category">
-      <option value="">All Categories</option>
-      <?php while($c = mysqli_fetch_assoc($cat_result)){ ?>
-        <option value="<?php echo $c['categoryName']; ?>">
-          <?php echo $c['categoryName']; ?>
-        </option>
-      <?php } ?>
-    </select>
+  <option value="">All Categories</option>
+
+  <?php 
+  while($c = mysqli_fetch_assoc($cat_result)){ 
+    $selected = (isset($_POST['category']) && $_POST['category'] == $c['categoryName']) ? "selected" : "";
+  ?>
+    <option value="<?php echo $c['categoryName']; ?>" <?php echo $selected; ?>>
+      <?php echo $c['categoryName']; ?>
+    </option>
+  <?php } ?>
+</select>
     <button type="submit" class="filter-btn">Filter</button>
   </form>
 
