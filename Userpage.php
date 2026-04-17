@@ -1,7 +1,6 @@
 <?php include("user_auth.php"); ?>
 <?php
 // Include authentication file (checks login + user type)
-include("auth.php"); 
 
 // Include database connection
 include("db.php");
