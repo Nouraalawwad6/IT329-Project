@@ -36,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($user["userType"] == "admin") {
                 header("Location: Admin.php");
             } else {
+                 if ($user["userType"] == "user")
                 header("Location: Userpage.php");
             }
             exit();

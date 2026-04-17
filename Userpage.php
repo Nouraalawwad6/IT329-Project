@@ -1,3 +1,4 @@
+<?php include("user_auth.php"); ?>
 <?php
 // Include authentication file (checks login + user type)
 include("auth.php"); 
@@ -13,10 +14,7 @@ $user_sql = "SELECT * FROM User WHERE id='$user_id'";
 $user_result = mysqli_query($conn, $user_sql);
 $user = mysqli_fetch_assoc($user_result);
 
-// If user not found, stop execution
-if(!$user){
-    die("User not found.");
-}
+
 
 /* ================= COUNT USER RECIPES ================= */
 // Count how many recipes this user has created
@@ -91,6 +89,11 @@ $fav_result = mysqli_query($conn,$fav_sql);
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winter Flavors | User Page</title>
+
+  <link rel="stylesheet" href="style.css">
 <meta charset="UTF-8">
 <title>Winter Flavors | User Page</title>
 <link rel="stylesheet" href="style.css">
@@ -103,16 +106,19 @@ $fav_result = mysqli_query($conn,$fav_sql);
 
     <!-- Logo -->
     <div class="logo-box">
+      <img src="images/logo.png" alt="Logo" id="Logo">
       <img src="images/logo.png" id="Logo">
     </div>
 
     <!-- Welcome message -->
     <div class="header-center">
       <h2 class="welcome-text">
+        Welcome <span class="username">Sara</span>
         Welcome <span class="username"><?php echo $user['firstName']; ?></span>
       </h2>
     </div>
 
+<a href="logout.php" class="logout">Log-out</a>
     <!-- Logout button -->
     <a href="logout.php" class="logout">Log-out</a>
 
@@ -126,6 +132,7 @@ $fav_result = mysqli_query($conn,$fav_sql);
   <div>
     <h3>My Information</h3>
 
+<main class="user-page">
     <!-- Display full name -->
     <p><strong>Name:</strong>
       <?php echo $user['firstName']." ".$user['lastName']; ?>
@@ -157,20 +164,44 @@ $photo = (!empty($user['photoFileName']) && $user['photoFileName'] != 'profile.p
   <!-- Total recipes -->
   <p>Total Recipes: <?php echo $count['totalRecipes']; ?></p>
 
+    <!-- My Information -->
+    <section class="box info-box">
+      <div>
+        <h3>My Information</h3>
+        <p><strong>Name:</strong> Sara Ahmed</p>
+        <p><strong>Email:</strong> sara@email.com</p>
+      </div>
+      <img id="profileImage" src="./images/profile.png" alt="Profile Image">
   <!-- Total likes -->
   <p>Total Likes: <?php echo $likes['totalLikes']; ?></p>
 </section>
 
+    </section>
 
+    <!-- My Recipes -->
+    <section class="box">
+      <h3><a href="MyRecipes.html" class="link">My Recipes</a></h3>
+      <p>Total Recipes: 3</p>
+      <p>Total Likes: 102</p>
+    </section>
 <!-- ================= ALL RECIPES ================= -->
 <section class="box">
   <h3>All Available Recipes</h3>
 
+    <!-- All Available Recipes -->
+    <section class="box">
+      <h3>All Available Recipes</h3>
 <!-- Filter form -->
 <form method="POST" class="filter">
   <select name="category">
     <option value="">All Categories</option>
 
+    <div class="filter">
+  <select id="categoryFilter">
+    <option value="all">All Categories</option>
+    <option value="Hot Drinks">Hot Drinks</option>
+    <option value="Winter Sweets">Winter Sweets</option>
+    <option value="Soups & Warm Meals">Soups & Warm Meals</option>
     <?php 
     // Loop through categories
     mysqli_data_seek($cat_result, 0); 
@@ -182,6 +213,104 @@ $photo = (!empty($user['photoFileName']) && $user['photoFileName'] != 'profile.p
       </option>
     <?php } ?>
   </select>
+  <button class="filter-btn" onclick="filterRecipes()">Filter</button>
+</div>
+
+
+      <table id="recipesTable">
+
+        <thead>
+          <tr>
+            <th>Recipe Name</th>
+            <th>Recipe Photo</th>
+            <th>Recipe Creator</th>
+            <th>Likes</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td><a href="ViewRecipe.html" class="link">Healthy Hot Chocolate</a></td>
+            <td><img src="./images/hot chocolate.png" alt="Healthy Hot Chocolate" class="recipe-photo"></td>
+            <td>Sara<br><img src="./images/profile.png" alt="Sara's Profile" class="profile-photo"></td>
+            <td>45</td>
+            <td>Hot Drinks</td>
+          </tr>
+
+          <tr>
+            <td>Vanilla Latte</td>
+            <td><img src="./images/Vanilla Latte.png" alt="Vanilla Latte" class="recipe-photo"></td>
+            <td>Omar<br><img src="./images/comments.png" alt="Omar's Profile" class="profile-photo"></td>
+            <td>30</td>
+            <td>Hot Drinks</td>
+          </tr>
+  <tr>
+            <td>Chicken Vegetable Soup</td>
+            <td><img src="./images/Chicken Vegetable Soup.png" alt="Chicken Vegetable Soup" class="recipe-photo"></td>
+            <td>Sara<br><img src="./images/profile.png" alt="Sara's Profile" class="profile-photo"></td>
+            <td>30</td>
+            <td>Soups & Warm Meals</td>
+          </tr>
+
+          <tr>
+            <td>Gingerbread Cookies</a></td>
+            <td><img src="./images/Gingerbread Cookies.png" alt="Gingerbread Cookies" class="recipe-photo"></td>
+            <td>Noor<br><img src="./images/comments.png" alt="Noor's Profile" class="profile-photo"></td>
+            <td>38</td>
+            <td>Winter Sweets</td>
+          </tr>
+
+          <tr>
+            <td>Cinnamon Apple Pie</td>
+            <td><img src="./images/Cinnamon Apple Pie.png" alt="Cinnamon Apple Pie" class="recipe-photo"></td>
+            <td>Sara<br><img src="./images/profile.png" alt="Sara's Profile" class="profile-photo"></td>
+            <td>27</td>
+            <td>Winter Sweets</td>
+          </tr>
+
+          <tr>
+            <td>Chicken Cream Soup</td>
+            <td><img src="./images/Chicken Cream Soup.png" alt="Chicken Cream Soup" class="recipe-photo"></td>
+            <td>Ali<br><img src="./images/comments.png" alt="Ali's Profile" class="profile-photo"></td>
+            <td>22</td>
+            <td>Soups & Warm Meals</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Favourite Recipes -->
+    <section class="box">
+      <h3>My Favourite Recipes ♥</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Recipe Name</th>
+            <th>Recipe Photo</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td><a href="ViewRecipe.html" class="link">Healthy Hot Chocolate</a></td>
+            <td><img src="./images/hot chocolate.png" alt="Healthy Hot Chocolate" class="recipe-photo"></td>
+            <td><a href="Userpage.html" class="link">Remove</a></td>
+          </tr>
+
+          <tr>
+            <td>Gingerbread Cookies</a></td>
+            <td><img src="./images/Gingerbread Cookies.png" alt="Gingerbread Cookies" class="recipe-photo"></td>
+            <td><a href="Userpage.html" class="link">Remove</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+  <script src="script.js"></script>
 
   <button class="filter-btn">Filter</button>
 </form>
@@ -307,4 +436,5 @@ Remove
 </main>
 
 </body>
+</html>
 </html>

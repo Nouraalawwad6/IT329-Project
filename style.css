@@ -1557,8 +1557,8 @@ th {
 
 .error-message{
   display: none;
-  color: #b91c1c;              /* لون النص أحمر */
-  background-color: #ffe5e5;   /* خلفية حمراء فاتحة */
+  color: #b91c1c;             
+  background-color: #ffe5e5;   
   border: 1px solid #f5b5b5;
   padding: 10px 12px;
   border-radius: 8px;
