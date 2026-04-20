@@ -1,6 +1,6 @@
 <?php
 
-include("user_auth.php");
+include("user_only.php");
 include("db.php");
 
 $user_id = $_SESSION['userID'];
