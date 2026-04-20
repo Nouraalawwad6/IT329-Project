@@ -1,5 +1,5 @@
 <?php
-include("auth.php");
+include("user_auth.php");
 include("db.php");
 
 // --- 9a: Check recipe ID from query string ---

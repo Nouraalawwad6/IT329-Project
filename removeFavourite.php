@@ -1,5 +1,5 @@
 <?php
-include("auth.php");
+include("user_auth.php");
 include("db.php");
 
 if(isset($_GET['id'])){

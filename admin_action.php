@@ -1,5 +1,6 @@
 <?php
 include("db.php");
+include("admin_auth.php");// Ensure only admins can access this page
 
 // --- Task 11-c: Admin Actions(Block or Dismiss Report)
 

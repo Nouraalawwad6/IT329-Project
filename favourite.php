@@ -1,5 +1,5 @@
 <?php
-include("auth.php");
+include("user_auth.php");
 include("db.php");
 
 // --- Task 10-d: Favourites
