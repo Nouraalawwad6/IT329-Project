@@ -2,7 +2,7 @@
 include("user_auth.php");
 include("db.php");
 
-// --- 9a: Check recipe ID from query string ---
+
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     header("Location: MyRecipes.php");
     exit();
@@ -72,7 +72,7 @@ $categories = $conn->query("SELECT id, categoryName FROM RecipeCategory")->fetch
   </section>
 
   <section class="edit-card">
-    <!-- 9b: Form submits to updateRecipe.php -->
+      
     <form id="editRecipeForm" class="edit-form" action="UpdateRecipe.php" method="POST" enctype="multipart/form-data">
 
       <!-- Hidden recipe ID -->
