@@ -42,8 +42,8 @@ if (isset($_FILES["videoFile"]) && $_FILES["videoFile"]["error"] == 0) {
 $stmt = $conn->prepare("INSERT INTO Recipe (userID, categoryID, name, description, photoFileName, videoFilePath) VALUES (?, ?, ?, ?, ?, ?)");
 $stmt->bind_param("iissss", $userID, $categoryID, $recipeName, $description, $photoFileName, $videoFilePath);
 $stmt->execute();
-
-$recipeID = $stmt->insert_id;
+$recipeID = $conn->insert_id;
+//$recipeID = $stmt->insert_id;
 
 /* ---------- Insert ingredients ---------- */
 $ingredientStmt = $conn->prepare("INSERT INTO Ingredients (recipeID, ingredientName, ingredientQuantity) VALUES (?, ?, ?)");
@@ -73,4 +73,3 @@ for ($i = 0; $i < count($instructions); $i++) {
 
 header("Location: MyRecipes.php");
 exit();
-?>

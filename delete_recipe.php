@@ -59,7 +59,7 @@ $deleteRecipe->bind_param("ii", $recipeID, $userID);
 
 if ($deleteRecipe->execute()) {
 
-    // حذف الصورة إذا كانت موجودة وليست الصورة الافتراضية
+    
     if (!empty($photoFileName) && $photoFileName !== "default.png" && $photoFileName !== "profile.png") {
         $photoPath = "images/" . $photoFileName;
         if (file_exists($photoPath)) {
@@ -67,7 +67,7 @@ if ($deleteRecipe->execute()) {
         }
     }
 
-    // حذف الفيديو إذا كان ملف محلي وليس رابط
+    
     if (!empty($videoFilePath) && !filter_var($videoFilePath, FILTER_VALIDATE_URL)) {
         if (file_exists($videoFilePath)) {
             unlink($videoFilePath);
