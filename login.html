@@ -78,13 +78,17 @@
 document.addEventListener("DOMContentLoaded", function() {
   const params = new URLSearchParams(window.location.search);
   const error = params.get("error");
-
+const msg = document.getElementById("errorMsgg");
+ if (msg) {
   if (error === "loginRequired") {
-    const msg = document.getElementById("errorMsgg");
-    if (msg) {
       msg.innerText = "You must login first!";
       msg.style.display = "block";
     }
+    else if (error === "adminOnly") {
+      msg.innerText = "Access Denied: Admin privileges required!";
+      msg.style.display = "block";
+    }
+    
   }
 });
 </script>
