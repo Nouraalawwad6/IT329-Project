@@ -1,19 +1,17 @@
 <?php
-include("user_auth.php");
 include("db.php");
+session_start();
 
-if(isset($_GET['id'])){
+$user_id = intval($_SESSION['userID']);
+$recipe_id = intval($_POST['id']);
 
-    $recipe_id = mysqli_real_escape_string($conn, $_GET['id']);
-    $user_id = $_SESSION['userID'];
+$sql = "DELETE FROM Favourites 
+        WHERE userID='$user_id' 
+        AND recipeID='$recipe_id'";
 
-    $delete_sql = "DELETE FROM Favourites 
-                   WHERE userID='$user_id' 
-                   AND recipeID='$recipe_id'";
-
-    mysqli_query($conn, $delete_sql);
+if(mysqli_query($conn, $sql)){
+    echo "true";
+} else {
+    echo "false";
 }
-
-header("Location: UserPage.php");
-exit();
 ?>

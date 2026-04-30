@@ -195,20 +195,27 @@ $photo = (!empty($user['photoFileName']) && $user['photoFileName'] != 'profile.p
 <section class="box">
 <h3>My Favourite Recipes ♥</h3>
 
-<?php if(mysqli_num_rows($fav_result)==0){ ?>
-<p>No favourite recipes</p>
-<?php } else { ?>
 
-<table>
+<table id="favTable">
+<thead>
 <tr>
 <th>Name</th>
 <th>Photo</th>
 <th>Action</th>
 </tr>
+</thead>
+
+<tbody id="favBody">
+
+<?php if(mysqli_num_rows($fav_result) == 0){ ?>
+<tr>
+<td colspan="3">No favourite recipes</td>
+</tr>
+
+<?php } else { ?>
 
 <?php while($row = mysqli_fetch_assoc($fav_result)){ ?>
 <tr>
-
 <td>
 <a href="viewRecipe.php?id=<?php echo $row['id']; ?>" class="link">
 <?php echo $row['name']; ?>
@@ -220,20 +227,48 @@ $photo = (!empty($user['photoFileName']) && $user['photoFileName'] != 'profile.p
 </td>
 
 <td>
-<a href="removeFavourite.php?id=<?php echo $row['id']; ?>" class="link">
+<button class="removeBtn" data-id="<?php echo $row['id']; ?>">
 Remove
-</a>
+</button>
 </td>
-
 </tr>
 <?php } ?>
 
-</table>
 <?php } ?>
+
+</tbody>
+</table>
 
 </section>
 
 </main>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).on('click', '.removeBtn', function() {
+
+    var recipeID = $(this).data('id');
+    var row = $(this).closest('tr');
+
+    $.ajax({
+        url: 'removeFavourite.php',
+        type: 'POST',
+        data: { id: recipeID },
+
+        success: function(response) {
+            if(response.trim() == "true"){
+                row.remove();
+
+                if ($('#favBody tr td').length === 0) {
+                    $('#favBody').html('<tr><td colspan="3">No favourite recipes</td></tr>');
+                }
+            }
+        }
+    });
+
+});
+</script>
 
 </body>
 </html>
