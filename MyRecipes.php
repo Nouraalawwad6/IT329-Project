@@ -70,7 +70,7 @@ $result = $stmt->get_result();
           </thead>
           <tbody>
             <?php while ($recipe = $result->fetch_assoc()): ?>
-              <tr>
+             <tr id="recipe-row-<?php echo $recipe['id']; ?>">
                 <!-- Recipe -->
                 <td>
                   <div class="recipe-cell">
@@ -181,10 +181,9 @@ $result = $stmt->get_result();
 
                 <!-- Delete -->
                 <td>
-                  <a class="link danger" href="delete_recipe.php?id=<?php echo $recipe['id']; ?>"
-                     onclick="return confirm('Are you sure you want to delete this recipe?');">
-                    Delete
-                  </a>
+                  <a href="#" class="link danger delete-recipe-btn" data-id="<?php echo $recipe['id']; ?>">
+  Delete
+</a>
                 </td>
               </tr>
             <?php endwhile; ?>
@@ -196,6 +195,42 @@ $result = $stmt->get_result();
     </div>
   </section>
 </main>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
+<script>
+$(document).ready(function () {
+
+  $(".delete-recipe-btn").click(function (e) {
+    e.preventDefault();
+
+    if (!confirm("Are you sure you want to delete this recipe?")) {
+      return;
+    }
+
+    let recipeID = $(this).data("id");
+    let row = $("#recipe-row-" + recipeID);
+
+    $.ajax({
+      url: "delete_recipe_ajax.php",
+      type: "POST",
+      data: { recipeID: recipeID },
+      dataType: "json",
+
+      success: function (response) {
+        if (response === true) {
+          row.remove();
+        } else {
+          alert("Delete failed.");
+        }
+      },
+
+      error: function () {
+        alert("AJAX error.");
+      }
+    });
+  });
+
+});
+</script>
 </body>
 </html>
