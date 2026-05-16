@@ -105,7 +105,7 @@ $blocked = mysqli_query($conn,
             </td>
 
             <td>
-              <form method="POST" action="admin_action.php">
+              <form  class="admin-action-form">
                   <input type="hidden" name="reportID" value="<?php echo $r['reportID']; ?>">
                 
                   <input type="radio" name="action" value="block" required>
@@ -127,7 +127,7 @@ $blocked = mysqli_query($conn,
     <section class="admin-box">
       <h3>Blocked Users</h3>
 
-      <table class="admin-table">
+      <table class="admin-table" id="blocked-users-table">
         <thead>
           <tr>
             <th>Name</th>
@@ -149,5 +149,52 @@ $blocked = mysqli_query($conn,
     </section>
 </section>
   </main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- jQuery library to handle AJAX  -->
+
+<script>
+$(document).ready(function(){
+
+    // Handle the form submission using AJAX to prevent page reload
+    $(document).on("submit", ".admin-action-form", function(e){
+
+        e.preventDefault(); // Stop the form from redirecting the page
+
+        let form = $(this);
+        let row = form.closest("tr"); // Identify the current report row in the table
+
+        $.ajax({
+            url: "admin_action.php",
+            type: "POST",
+            data: form.serialize(), // Send form data (reportID and action)
+            dataType: "json", // Expecting a JSON response from the server
+            success: function(response){
+                
+                // 1. Always remove the report row from the "Pending Reports" table[cite: 1]
+                row.remove();
+
+                // 2. If the user was blocked, dynamically update the "Blocked Users" table[cite: 2]
+                if(response.status === "blocked"){
+                    // Construct the new table row with the data returned from the server[cite: 2]
+                    let newRow = `
+                        <tr>
+                            <td>${response.firstName} ${response.lastName}</td>
+                            <td>${response.email}</td>
+                        </tr>`;
+                    
+                    // Append the new row to the body of the blocked users table[cite: 1]
+                    $("#blocked-users-table tbody").append(newRow);
+                }
+            },
+            error: function(xhr, status, error) {
+                // Log errors to the console for debugging
+                console.error("AJAX Error: ", status, error);
+                alert("Something went wrong. Please check the console for details.");
+            }
+        });
+    });
+
+});
+</script>
 </body>
 </html>

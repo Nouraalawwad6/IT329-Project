@@ -95,7 +95,15 @@ $comments = $comStmt->get_result()->fetch_all(MYSQLI_ASSOC);
 <div class="wf-breadcrumb-bar">
   <div class="wf-breadcrumb-inner">
     <ol class="wf-breadcrumbs">
-      <li><a href="Userpage.php">User Page</a></li>
+      <li>
+        <?php if($_SESSION['userType'] == "admin"){ ?>
+
+            <a href="admin.php">Admin Page</a>
+        <?php } else { ?>
+
+            <a href="Userpage.php">User Page</a>
+        <?php } ?>
+        </li>
       <li class="separator">/</li>
       <li class="current" aria-current="page">View Recipe</li>
     </ol>
@@ -106,9 +114,8 @@ $comments = $comStmt->get_result()->fetch_all(MYSQLI_ASSOC);
   <article class="vr-card">
 
     <header class="vr-top">
-      <div></div>
       <div class="vr-actions">
-          
+          <?php if($_SESSION['userType'] == "regular"){ ?>
         <!--Favourite button -->  
       <?php
       if($hasFav){
@@ -135,7 +142,7 @@ $comments = $comStmt->get_result()->fetch_all(MYSQLI_ASSOC);
       <?php } else { ?>
       <a class="vr-btn vr-btn-outline" href="report.php?id=<?php echo $recipeID; ?>"><i class="fa-regular fa-flag"></i>Report</a>
       <?php } ?>
-       
+       <?php } ?>
       </div>
     </header>
 
