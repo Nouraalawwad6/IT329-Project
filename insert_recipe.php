@@ -20,30 +20,40 @@ $instructions = $_POST["instructions"] ?? [];
 
 $photoFileName = "";
 $videoFilePath = "";
+/* ---------- Insert recipe first without files ---------- */
+$stmt = $conn->prepare("INSERT INTO Recipe (userID, categoryID, name, description, photoFileName, videoFilePath) VALUES (?, ?, ?, ?, '', '')");
+$stmt->bind_param("iiss", $userID, $categoryID, $recipeName, $description);
+$stmt->execute();
 
-/* ---------- Upload photo ---------- */
+$recipeID = $conn->insert_id;
+
+/* ---------- Upload photo using recipe ID ---------- */
 if (isset($_FILES["photo"]) && $_FILES["photo"]["error"] == 0) {
     $photoExt = pathinfo($_FILES["photo"]["name"], PATHINFO_EXTENSION);
-    $photoFileName = "recipe_" . time() . "_" . rand(1000, 9999) . "." . $photoExt;
+
+    $photoFileName = "recipe_" . $recipeID . "_photo." . $photoExt;
+
     move_uploaded_file($_FILES["photo"]["tmp_name"], "images/" . $photoFileName);
 }
 
-/* ---------- Upload video OR save URL ---------- */
+/* ---------- Upload video OR save URL using recipe ID ---------- */
 if (isset($_FILES["videoFile"]) && $_FILES["videoFile"]["error"] == 0) {
     $videoExt = pathinfo($_FILES["videoFile"]["name"], PATHINFO_EXTENSION);
-    $videoFileName = "video_" . time() . "_" . rand(1000, 9999) . "." . $videoExt;
+
+    $videoFileName = "recipe_" . $recipeID . "_video." . $videoExt;
+
     move_uploaded_file($_FILES["videoFile"]["tmp_name"], "videos/" . $videoFileName);
+
     $videoFilePath = "videos/" . $videoFileName;
+
 } elseif (!empty($videoUrl)) {
     $videoFilePath = $videoUrl;
 }
 
-/* ---------- Insert recipe ---------- */
-$stmt = $conn->prepare("INSERT INTO Recipe (userID, categoryID, name, description, photoFileName, videoFilePath) VALUES (?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("iissss", $userID, $categoryID, $recipeName, $description, $photoFileName, $videoFilePath);
-$stmt->execute();
-$recipeID = $conn->insert_id;
-//$recipeID = $stmt->insert_id;
+/* ---------- Update recipe with file names ---------- */
+$updateStmt = $conn->prepare("UPDATE Recipe SET photoFileName = ?, videoFilePath = ? WHERE id = ?");
+$updateStmt->bind_param("ssi", $photoFileName, $videoFilePath, $recipeID);
+$updateStmt->execute();
 
 /* ---------- Insert ingredients ---------- */
 $ingredientStmt = $conn->prepare("INSERT INTO Ingredients (recipeID, ingredientName, ingredientQuantity) VALUES (?, ?, ?)");

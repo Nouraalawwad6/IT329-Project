@@ -13,7 +13,7 @@ if (!isset($_GET["id"]) || empty($_GET["id"])) {
 $recipeID = (int) $_GET["id"];
 $userID = $_SESSION["userID"];
 
-// نتأكد أن الوصفة تخص المستخدم الحالي
+// 1. Get file names BEFORE deleting the recipe
 $stmt = $conn->prepare("SELECT photoFileName, videoFilePath FROM Recipe WHERE id = ? AND userID = ?");
 $stmt->bind_param("ii", $recipeID, $userID);
 $stmt->execute();
@@ -28,52 +28,37 @@ $recipe = $result->fetch_assoc();
 $photoFileName = $recipe["photoFileName"];
 $videoFilePath = $recipe["videoFilePath"];
 
-// نحذف البيانات المرتبطة أولًا
-$deleteIngredients = $conn->prepare("DELETE FROM Ingredients WHERE recipeID = ?");
-$deleteIngredients->bind_param("i", $recipeID);
-$deleteIngredients->execute();
+// 2. Delete local photo file
+if (!empty($photoFileName) && $photoFileName !== "default.png" && $photoFileName !== "profile.png") {
+    $photoPath = __DIR__ . DIRECTORY_SEPARATOR . "images" . DIRECTORY_SEPARATOR . $photoFileName;
 
-$deleteInstructions = $conn->prepare("DELETE FROM Instructions WHERE recipeID = ?");
-$deleteInstructions->bind_param("i", $recipeID);
-$deleteInstructions->execute();
-
-$deleteComments = $conn->prepare("DELETE FROM Comment WHERE recipeID = ?");
-$deleteComments->bind_param("i", $recipeID);
-$deleteComments->execute();
-
-$deleteLikes = $conn->prepare("DELETE FROM Likes WHERE recipeID = ?");
-$deleteLikes->bind_param("i", $recipeID);
-$deleteLikes->execute();
-
-$deleteFavourites = $conn->prepare("DELETE FROM Favourites WHERE recipeID = ?");
-$deleteFavourites->bind_param("i", $recipeID);
-$deleteFavourites->execute();
-
-$deleteReports = $conn->prepare("DELETE FROM Report WHERE recipeID = ?");
-$deleteReports->bind_param("i", $recipeID);
-$deleteReports->execute();
-
-// ثم نحذف الوصفة نفسها
-$deleteRecipe = $conn->prepare("DELETE FROM Recipe WHERE id = ? AND userID = ?");
-$deleteRecipe->bind_param("ii", $recipeID, $userID);
-
-if ($deleteRecipe->execute()) {
-
-    
-    if (!empty($photoFileName) && $photoFileName !== "default.png" && $photoFileName !== "profile.png") {
-        $photoPath = "images/" . $photoFileName;
-        if (file_exists($photoPath)) {
-            unlink($photoPath);
-        }
-    }
-
-    
-    if (!empty($videoFilePath) && !filter_var($videoFilePath, FILTER_VALIDATE_URL)) {
-        if (file_exists($videoFilePath)) {
-            unlink($videoFilePath);
-        }
+    if (file_exists($photoPath)) {
+        unlink($photoPath);
     }
 }
+
+// 3. Delete local video file if not URL
+if (!empty($videoFilePath) && !filter_var($videoFilePath, FILTER_VALIDATE_URL)) {
+    $videoPath = __DIR__ . DIRECTORY_SEPARATOR . $videoFilePath;
+
+    if (file_exists($videoPath)) {
+        unlink($videoPath);
+    }
+}
+
+// 4. Delete related data
+$tables = ["Ingredients", "Instructions", "Comment", "Likes", "Favourites", "Report"];
+
+foreach ($tables as $table) {
+    $deleteStmt = $conn->prepare("DELETE FROM `$table` WHERE recipeID = ?");
+    $deleteStmt->bind_param("i", $recipeID);
+    $deleteStmt->execute();
+}
+
+// 5. Delete recipe itself
+$deleteRecipe = $conn->prepare("DELETE FROM Recipe WHERE id = ? AND userID = ?");
+$deleteRecipe->bind_param("ii", $recipeID, $userID);
+$deleteRecipe->execute();
 
 header("Location: MyRecipes.php");
 exit();
