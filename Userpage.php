@@ -28,31 +28,16 @@ $cat_sql = "SELECT * FROM RecipeCategory";
 $cat_result = mysqli_query($conn,$cat_sql);
 
 /* ===== RECIPES ===== */
-if($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST['category'])){
-    $cat = mysqli_real_escape_string($conn, $_POST['category']);
+$recipes_sql = "SELECT Recipe.*, User.firstName, User.photoFileName AS userPhoto,
+RecipeCategory.categoryName,
+COUNT(Likes.recipeID) AS likes
+FROM Recipe
+JOIN User ON Recipe.userID = User.id
+JOIN RecipeCategory ON Recipe.categoryID = RecipeCategory.id
+LEFT JOIN Likes ON Recipe.id = Likes.recipeID
+GROUP BY Recipe.id";
 
-    $recipes_sql = "SELECT Recipe.*, User.firstName, User.photoFileName AS userPhoto,
-    RecipeCategory.categoryName,
-    COUNT(Likes.recipeID) AS likes
-    FROM Recipe
-    JOIN User ON Recipe.userID = User.id
-    JOIN RecipeCategory ON Recipe.categoryID = RecipeCategory.id
-    LEFT JOIN Likes ON Recipe.id = Likes.recipeID
-    WHERE RecipeCategory.categoryName='$cat'
-    GROUP BY Recipe.id";
-}else{
-    $recipes_sql = "SELECT Recipe.*, User.firstName, User.photoFileName AS userPhoto,
-    RecipeCategory.categoryName,
-    COUNT(Likes.recipeID) AS likes
-    FROM Recipe
-    JOIN User ON Recipe.userID = User.id
-    JOIN RecipeCategory ON Recipe.categoryID = RecipeCategory.id
-    LEFT JOIN Likes ON Recipe.id = Likes.recipeID
-    GROUP BY Recipe.id";
-}
-
-$recipes_result = mysqli_query($conn,$recipes_sql);
-
+$recipes_result = mysqli_query($conn, $recipes_sql);
 /* ===== FAVOURITES ===== */
 $fav_sql = "SELECT Recipe.*
 FROM Favourites
@@ -131,7 +116,7 @@ $photo = (!empty($user['photoFileName']) && $user['photoFileName'] != 'profile.p
 
   <!-- FILTER -->
   <form method="POST" class="filter">
-    <select name="category">
+    <select name="category" id="categoryFilter">
   <option value="">All Categories</option>
 
   <?php 
@@ -143,14 +128,13 @@ $photo = (!empty($user['photoFileName']) && $user['photoFileName'] != 'profile.p
     </option>
   <?php } ?>
 </select>
-    <button type="submit" class="filter-btn">Filter</button>
   </form>
 
 <?php if(mysqli_num_rows($recipes_result) == 0){ ?>
   <p>No recipes found</p>
 <?php } else { ?>
 
-<table>
+<table id="recipesTable">
 <thead>
 <tr>
 <th>Recipe Name</th>
@@ -244,7 +228,8 @@ Remove
 </main>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="script.js"></script>
 <script>
 $(document).on('click', '.removeBtn', function() {
 
@@ -265,6 +250,77 @@ $(document).on('click', '.removeBtn', function() {
                 }
             }
         }
+    });
+
+});
+// ==========================
+// FILTER RECIPES AJAX
+// ==========================
+
+$("#categoryFilter").change(function () {
+
+    let selectedCategory = $(this).val();
+
+    $.ajax({
+        url: "filter_recipes.php",
+        type: "POST",
+        data: {
+            category: selectedCategory
+        },
+        dataType: "json",
+
+        success: function (recipes) {
+
+            let tableBody = $("#recipesTable tbody");
+
+            tableBody.empty();
+
+            if (recipes.length === 0) {
+
+                tableBody.append(`
+                    <tr>
+                        <td colspan="5">No recipes found</td>
+                    </tr>
+                `);
+
+            } else {
+
+                recipes.forEach(function(recipe){
+
+                    tableBody.append(`
+                        <tr>
+
+<td>
+<a href="ViewRecipe.php?id=${recipe.id}" class="link">
+${recipe.name}
+</a>
+</td>
+
+<td>
+<img src="images/${recipe.photoFileName}" class="recipe-photo">
+</td>
+
+<td>
+${recipe.firstName}
+</td>
+
+<td>
+${recipe.likes}
+</td>
+
+<td>
+${recipe.categoryName}
+</td>
+
+                        </tr>
+                    `);
+
+                });
+
+            }
+
+        }
+
     });
 
 });
