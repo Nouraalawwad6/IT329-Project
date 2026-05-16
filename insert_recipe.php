@@ -6,7 +6,9 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
     header("Location: AddRecipe.php");
     exit();
 }
-
+if (!isset($_POST["recipeName"], $_POST["categoryID"], $_POST["description"])) {
+    die("Upload is too large or form data was not received. Please choose a smaller video.");
+}
 $userID = $_SESSION["userID"];
 
 $recipeName = trim($_POST["recipeName"]);
