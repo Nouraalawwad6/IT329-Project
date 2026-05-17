@@ -211,7 +211,18 @@ $photo = (!empty($user['photoFileName']) && $user['photoFileName'] != 'profile.p
 </td>
 
 <td>
-<button class="removeBtn" data-id="<?php echo $row['id']; ?>">
+<button 
+class="removeBtn"
+style="
+background:none;
+border:none;
+color:#1f2f46;
+font-weight:bold;
+font-size:16px;
+text-decoration:underline;
+cursor:pointer;
+"
+data-id="<?php echo $row['id']; ?>">
 Remove
 </button>
 </td>
