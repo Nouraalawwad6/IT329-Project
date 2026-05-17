@@ -934,6 +934,12 @@ th {
   padding-bottom: 2px;
 }
 
+
+.vr-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .vr-link:hover{
   border-bottom-color: rgba(31,47,70,0.55);
 }
