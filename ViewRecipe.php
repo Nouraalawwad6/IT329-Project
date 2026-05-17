@@ -123,7 +123,7 @@ $comments = $comStmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
     <header class="vr-top">
       <div class="vr-actions">
-          <?php if($_SESSION['userType'] == "user"){ ?>
+         <?php if($_SESSION['userType'] == "user"){ ?>
         <!--Favourite button -->
         <button class="vr-btn" id="btn-favourite" data-id="<?php echo $recipeID; ?>" <?php echo $hasFav ? 'disabled' : ''; ?>>
           <i class="fa-regular fa-heart"></i> Favourite

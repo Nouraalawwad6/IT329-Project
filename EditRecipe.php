@@ -177,10 +177,10 @@ $categories = $conn->query("SELECT id, categoryName FROM RecipeCategory")->fetch
       </div>
 
       <div class="edit-field">
-        <label for="editVideoUrl">Video URL (Optional)</label>
-        <input id="editVideoUrl" name="videoUrl" type="url" placeholder="https://..."
-               value="<?php echo htmlspecialchars($recipe['videoFilePath'] ?? ''); ?>">
-      </div>
+  <label for="editVideoUrl">Video URL (Optional)</label>
+  <input id="editVideoUrl" name="videoUrl" type="text" placeholder="https://..."
+         value="<?php echo htmlspecialchars($recipe['videoFilePath'] ?? ''); ?>">
+</div>
 
       <div class="edit-actions">
         <a class="edit-btn edit-btn-outline" href="MyRecipes.php">Cancel</a>
