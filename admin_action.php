@@ -62,6 +62,17 @@ mysqli_query($conn,"DELETE FROM Recipe WHERE userID='$userID'");
     mysqli_query($conn, "INSERT INTO BlockedUser (firstName, lastName, emailAddress) 
                          VALUES ('{$u['firstName']}', '{$u['lastName']}', '{$u['emailAddress']}')");    
 
+    // Delete user's profile image
+$extensions = ['jpg', 'jpeg', 'png', 'webp'];
+
+foreach($extensions as $ext){
+
+    $profileImage = "images/" . $userID . "_profile." . $ext;
+
+    if(file_exists($profileImage)){
+        unlink($profileImage);
+    }
+}
     // 4. Permanently remove the user from the main User table
     mysqli_query($conn, "DELETE FROM User WHERE id='$userID'");
     
