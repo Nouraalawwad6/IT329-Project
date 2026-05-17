@@ -216,7 +216,7 @@ class="removeBtn"
 style="
 background:none;
 border:none;
-color:black;
+color:#1f2f46;
 font-weight:bold;
 font-size:16px;
 text-decoration:underline;
