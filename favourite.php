@@ -2,17 +2,24 @@
 include("user_auth.php");
 include("db.php");
 
-// --- Task 10-d: Favourites
-$recipeID = $_GET['id'];
-$userID = $_SESSION['userID'];
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo 'false';
+    exit();
+}
 
-// Link user and recipe in Favourites table
-mysqli_query($conn,
-"INSERT INTO Favourites (userID, recipeID)
-VALUES ('$userID', '$recipeID')"
-);
+$recipeID = isset($_POST['recipeID']) && is_numeric($_POST['recipeID']) ? (int)$_POST['recipeID'] : 0;
+$userID   = (int)$_SESSION['userID'];
 
-// Redirect back to viewRecipe 
-header("Location: viewRecipe.php?id=$recipeID");
-exit();
-?>
+if ($recipeID === 0) {
+    echo 'false';
+    exit();
+}
+
+$stmt = $conn->prepare("INSERT INTO Favourites (userID, recipeID) VALUES (?, ?)");
+$stmt->bind_param("ii", $userID, $recipeID);
+
+if ($stmt->execute()) {
+    echo 'true';
+} else {
+    echo 'false';
+}

@@ -58,17 +58,25 @@ $comments = $comStmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
 
 // --- Task 10-d Check if user already interacted with the recipe
+    $sessionUserID = (int)$_SESSION['userID'];
+
     // check if logged-in user has already liked this recipe
-    $likeCheck = mysqli_query($conn, "SELECT * FROM Likes WHERE userID='$_SESSION[userID]' AND recipeID='$recipeID'");
-    $hasLiked = mysqli_num_rows($likeCheck) > 0;
+    $likeCheck = $conn->prepare("SELECT 1 FROM Likes WHERE userID = ? AND recipeID = ?");
+    $likeCheck->bind_param("ii", $sessionUserID, $recipeID);
+    $likeCheck->execute();
+    $hasLiked = $likeCheck->get_result()->num_rows > 0;
 
     // check it's already in the user's favorites
-    $favCheck = mysqli_query($conn, "SELECT * FROM Favourites WHERE userID='$_SESSION[userID]' AND recipeID='$recipeID'");
-    $hasFav = mysqli_num_rows($favCheck) > 0;
+    $favCheck = $conn->prepare("SELECT 1 FROM Favourites WHERE userID = ? AND recipeID = ?");
+    $favCheck->bind_param("ii", $sessionUserID, $recipeID);
+    $favCheck->execute();
+    $hasFav = $favCheck->get_result()->num_rows > 0;
 
     // check if the user has already reported this recipe
-    $repCheck = mysqli_query($conn, "SELECT * FROM Report WHERE userID='$_SESSION[userID]' AND recipeID='$recipeID'");
-    $hasRep = mysqli_num_rows($repCheck) > 0;
+    $repCheck = $conn->prepare("SELECT 1 FROM Report WHERE userID = ? AND recipeID = ?");
+    $repCheck->bind_param("ii", $sessionUserID, $recipeID);
+    $repCheck->execute();
+    $hasRep = $repCheck->get_result()->num_rows > 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -115,34 +123,22 @@ $comments = $comStmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
     <header class="vr-top">
       <div class="vr-actions">
-          <?php if($_SESSION['userType'] == "regular"){ ?>
-        <!--Favourite button -->  
-      <?php
-      if($hasFav){
-      ?>
-      <button class="vr-btn" disabled>Favourite</button>
-      <?php } else { ?>
-      <a class="vr-btn" href="favourite.php?id=<?php echo $recipeID; ?>"><i class="fa-regular fa-heart"></i>Favourite</a>
+          <?php if($_SESSION['userType'] == "user"){ ?>
+        <!--Favourite button -->
+        <button class="vr-btn" id="btn-favourite" data-id="<?php echo $recipeID; ?>" <?php echo $hasFav ? 'disabled' : ''; ?>>
+          <i class="fa-regular fa-heart"></i> Favourite
+        </button>
+
+        <!--Like button -->
+        <button class="vr-btn" id="btn-like" data-id="<?php echo $recipeID; ?>" <?php echo $hasLiked ? 'disabled' : ''; ?>>
+          <i class="fa-regular fa-thumbs-up"></i> Like
+        </button>
+
+        <!--Report button -->
+        <button class="vr-btn vr-btn-outline" id="btn-report" data-id="<?php echo $recipeID; ?>" <?php echo $hasRep ? 'disabled' : ''; ?>>
+          <i class="fa-regular fa-flag"></i> Report
+        </button>
       <?php } ?>
-        
-       <!--like button -->
-      <?php
-      if($hasLiked){
-      ?>
-      <button class="vr-btn" disabled>Like</button>
-      <?php } else { ?>
-      <a class="vr-btn" href="like.php?id=<?php echo $recipeID; ?>"><i class="fa-regular fa-heart"></i>Like</a>
-      <?php } ?>
-      
-       <!--Report button --> 
-      <?php
-      if($hasRep){
-      ?>
-      <button class="vr-btn" disabled>Report</button>
-      <?php } else { ?>
-      <a class="vr-btn vr-btn-outline" href="report.php?id=<?php echo $recipeID; ?>"><i class="fa-regular fa-flag"></i>Report</a>
-      <?php } ?>
-       <?php } ?>
       </div>
     </header>
 
@@ -258,5 +254,44 @@ $comments = $comStmt->get_result()->fetch_all(MYSQLI_ASSOC);
   </article>
 </main>
 
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+$(document).ready(function () {
+
+  function handleAction(btnID, url) {
+    var btn = $(btnID);
+    var recipeID = btn.data("id");
+
+    $.ajax({
+      url: url,
+      type: "POST",
+      data: { recipeID: recipeID },
+      success: function (response) {
+        if (response.trim() === "true") {
+          btn.prop("disabled", true);
+        } else {
+          alert("Action failed. You may have already done this.");
+        }
+      },
+      error: function () {
+        alert("An error occurred. Please try again.");
+      }
+    });
+  }
+
+  $("#btn-favourite").click(function () {
+    handleAction("#btn-favourite", "favourite.php");
+  });
+
+  $("#btn-like").click(function () {
+    handleAction("#btn-like", "like.php");
+  });
+
+  $("#btn-report").click(function () {
+    handleAction("#btn-report", "report.php");
+  });
+
+});
+</script>
 </body>
 </html>

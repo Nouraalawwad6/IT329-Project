@@ -808,9 +808,6 @@ th {
   margin-top: 14px;
 }
 
-.vr-top > div:first-child{
-  display: none;
-}
 
 .vr-actions{
   display: flex;

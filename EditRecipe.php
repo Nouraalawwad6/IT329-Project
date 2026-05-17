@@ -10,15 +10,16 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 
 $recipeID = (int)$_GET['id'];
 
-// Fetch recipe basic info
+// Fetch recipe basic info — also verify ownership
 $recipeStmt = $conn->prepare("
     SELECT r.id, r.name, r.description, r.photoFileName, r.videoFilePath, r.categoryID,
            rc.categoryName
     FROM Recipe r
     JOIN RecipeCategory rc ON r.categoryID = rc.id
-    WHERE r.id = ?
+    WHERE r.id = ? AND r.userID = ?
 ");
-$recipeStmt->bind_param("i", $recipeID);
+$ownerID = (int)$_SESSION['userID'];
+$recipeStmt->bind_param("ii", $recipeID, $ownerID);
 $recipeStmt->execute();
 $recipeResult = $recipeStmt->get_result();
 
