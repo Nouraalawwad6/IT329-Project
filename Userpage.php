@@ -150,7 +150,7 @@ $photo = (!empty($user['photoFileName']) && $user['photoFileName'] != 'profile.p
 <tr>
 
 <td>
-<a href="viewRecipe.php?id=<?php echo $row['id']; ?>" class="link">
+<a href="ViewRecipe.php?id=<?php echo $row['id']; ?>" class="link">
 <?php echo $row['name']; ?>
 </a>
 </td>

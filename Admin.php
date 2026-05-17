@@ -88,7 +88,7 @@ $blocked = mysqli_query($conn,
             <?php while($r = mysqli_fetch_assoc($reports)){ ?>
           <tr>
             <td>    
-              <a class="admin-link" href="viewRecipe.php?id=<?php echo $r['recipeID']; ?>">
+              <a class="admin-link" href="ViewRecipe.php?id=<?php echo $r['recipeID']; ?>">
              <?php echo $r['name']; ?>
               </a>
             </td>
