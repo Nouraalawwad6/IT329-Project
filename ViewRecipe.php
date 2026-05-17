@@ -2,7 +2,7 @@
 include("user_auth.php");
 include("db.php");
 
-// --- 10a: Check recipe ID from query string ---
+//  Check recipe ID from query string ---
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     header("Location: Userpage.php");
     exit();
@@ -10,7 +10,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 
 $recipeID = (int)$_GET['id'];
 
-// --- 10b: Retrieve all recipe info and its creator ---
+//  Retrieve all recipe info and its creator ---
 $stmt = $conn->prepare("
     SELECT r.id, r.name, r.description, r.photoFileName, r.videoFilePath,
            rc.categoryName,
@@ -57,7 +57,7 @@ $comments = $comStmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
 
 
-// --- Task 10-d Check if user already interacted with the recipe
+//  Check if user already interacted with the recipe
     $sessionUserID = (int)$_SESSION['userID'];
 
     // check if logged-in user has already liked this recipe
